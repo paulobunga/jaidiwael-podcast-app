@@ -1,0 +1,20 @@
+<div style="position: absolute; bottom: 0px; width: 100%;">
+  <ion-footer [@showHide]="displayFooter" *ngIf="currentPodcast.podcast">
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button shape="round" (click)="play()" *ngIf="!state.playing">
+          <ion-icon slot="icon-only" name="play-circle"></ion-icon>
+        </ion-button>
+        <ion-button shape="round" (click)="pause()" *ngIf="!!state.playing">
+          <ion-icon slot="icon-only" name="pause-circle"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title style="font: 12px">{{
+        currentPodcast.podcast.name
+      }}</ion-title>
+      <ion-title style="font-size: 10px; color: rgba(0, 0, 0, 0.5)">{{
+        currentPodcast.podcast.author
+      }}</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+</div>
