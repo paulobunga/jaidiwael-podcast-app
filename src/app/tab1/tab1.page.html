@@ -14,7 +14,7 @@
   <ion-grid *ngIf="podcasts.length" style="margin-bottom: 55px">
     <ion-row>
       <ion-col size="6" *ngFor="let podcast of podcasts; let i = index">
-        <ion-card (click)="openPodcast(podcast, i)">
+        <ion-card (click)="openPodcast(podcast, i)" style="min-height: 210px">
           <ion-icon
             size="large"
             *ngIf="currentPodcast.index !== i"
@@ -31,14 +31,6 @@
             name="pause-circle-outline"
           ></ion-icon>
 
-          <!-- <ion-icon
-            style="position: absolute; bottom: 0; right: 0; margin: 10px"
-            
-            color="dark"
-            item-start
-            name="musical-note"
-          ></ion-icon> -->
-
           <img src="{{podcast.image}}" />
           <ion-card-header>
             <ion-card-subtitle style="font-size: 8px"
@@ -48,7 +40,7 @@
               >{{podcast.name}}</ion-card-title
             >
           </ion-card-header>
-          <ion-card-content style="font-size: 10px">
+          <ion-card-content class="truncate" style="font-size: 10px">
             {{podcast.summary}}
           </ion-card-content>
         </ion-card>

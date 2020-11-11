@@ -119,6 +119,11 @@ export class PlayerComponent implements AfterViewInit {
     this.audioService.stop();
   }
 
+  close() {
+    this.displayFooter = "inactive";
+    this.resetState();
+  }
+
   next() {
     let index = this.currentPodcast.index + 1;
     let podcast = this.podcasts[index];

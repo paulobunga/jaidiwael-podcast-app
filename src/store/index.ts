@@ -84,6 +84,7 @@ export function mediaStateReducer(state, action: MediaAction) {
     case RESET:
       return {
         ...state,
+        currentPodcast: null,
         media: {},
       };
     default:

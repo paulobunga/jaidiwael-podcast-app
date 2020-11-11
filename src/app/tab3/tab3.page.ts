@@ -119,11 +119,11 @@ export class Tab3Page implements AfterViewInit {
 
   async getPodcasts() {
     let loader = await this.presentLoader();
-    this.podcastService.getPodcasts().subscribe((podcasts) => {
+    this.podcastService.getRadioStations().subscribe((stations) => {
       //this.podcasts = podcasts;
       this.store.dispatch({
         type: GET_PODCASTS,
-        payload: { value: podcasts },
+        payload: { value: stations },
       });
       loader.dismiss();
     });
