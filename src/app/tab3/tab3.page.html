@@ -19,7 +19,7 @@
             size="large"
             *ngIf="currentPodcast.index !== i"
             style="position: absolute; top: 0; right: 0; margin: 10px"
-            color="podcast.color"
+            color="dark"
             name="play-circle-outline"
           >
           </ion-icon>
@@ -50,7 +50,7 @@
               >{{podcast.name}}</ion-card-title
             >
           </ion-card-header>
-          <ion-card-content style="font-size: 10px">
+          <ion-card-content class="truncate" style="font-size: 10px">
             {{podcast.summary}}
           </ion-card-content>
         </ion-card>
