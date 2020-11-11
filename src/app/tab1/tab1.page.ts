@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import {
@@ -18,7 +18,7 @@ import { PodcastService } from "./../podcast.service";
   templateUrl: "tab1.page.html",
   styleUrls: ["tab1.page.scss"],
 })
-export class Tab1Page implements AfterViewInit {
+export class Tab1Page {
   podcasts: any = [];
   currentPodcast: any = {};
   state: any = {};
@@ -28,27 +28,47 @@ export class Tab1Page implements AfterViewInit {
     private audioService: AudioService,
     private store: Store<any>,
     public loadingCtrl: LoadingController
-  ) {
-    this.getPodcasts();
-  }
-  ngAfterViewInit(): void {
+  ) {}
+  ionViewWillEnter(): void {
     this.store.select("appState").subscribe((value) => {
       if (value) {
+        this.state = value.media;
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
         }
       }
     });
+
+    this.getPodcasts();
+  }
+
+  ionViewWillLeave() {
+    this.store.dispatch({
+      type: GET_PODCASTS,
+      payload: { value: [] },
+    });
   }
 
   openPodcast(podcast, index) {
-    let currentPodcast = { index, podcast };
-    this.store.dispatch({
-      type: SET_CURRENT_TRACK,
-      payload: { value: currentPodcast },
-    });
-    this.playStream(podcast.url);
+    if (this.currentPodcast.index === index) {
+      if (this.state.playing) {
+        this.audioService.pause();
+      } else {
+        this.audioService.play();
+      }
+    } else {
+      let currentPodcast = { index, podcast };
+      this.store.dispatch({
+        type: SET_CURRENT_TRACK,
+        payload: { value: currentPodcast },
+      });
+      this.playStream(podcast.url);
+    }
+  }
+
+  pausePodcast() {
+    this.audioService.pause();
   }
 
   resetState() {

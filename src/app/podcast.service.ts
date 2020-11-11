@@ -73,7 +73,7 @@ export class PodcastService {
         "https://pbcdn1.podbean.com/imglogo/ep-logo/pbblog4225843/IFRS_Today_avatar_hi-res_with_R_mark_v2_300x300.png",
       author: "Partner, KPMG Netherlands",
       summary: "Preparing for IFRS 16, the new leases standard",
-      color: "black",
+      color: "green",
     },
     {
       url:
@@ -84,7 +84,7 @@ export class PodcastService {
       author: "Banking Accounting Advisory Services, KPMG in the UK",
       summary:
         "Companies are finding that their interactions with crypto-assets are increasing. In this episode",
-      color: "black",
+      color: "red",
     },
   ];
 
@@ -138,6 +138,10 @@ export class PodcastService {
 
   getPodcasts() {
     return of(this.podcastsTab1);
+  }
+
+  getPodcasts2() {
+    return of(this.podcastsTab2);
   }
 
   getRadioStations() {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import {
@@ -18,7 +18,7 @@ import { PodcastService } from "./../podcast.service";
   templateUrl: "tab3.page.html",
   styleUrls: ["tab3.page.scss"],
 })
-export class Tab3Page implements AfterViewInit {
+export class Tab3Page {
   podcasts: any = [];
   currentPodcast: any = {};
   state: any = {};
@@ -28,17 +28,25 @@ export class Tab3Page implements AfterViewInit {
     private audioService: AudioService,
     private store: Store<any>,
     public loadingCtrl: LoadingController
-  ) {
-    this.getPodcasts();
-  }
-  ngAfterViewInit(): void {
+  ) {}
+
+  ionViewWillEnter() {
     this.store.select("appState").subscribe((value) => {
       if (value) {
+        this.state = value.media;
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
         }
       }
+    });
+    this.getPodcasts();
+  }
+
+  ionViewWillLeave() {
+    this.store.dispatch({
+      type: GET_PODCASTS,
+      payload: { value: [] },
     });
   }
 

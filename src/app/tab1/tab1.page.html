@@ -4,6 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -11,24 +12,36 @@
     </ion-toolbar>
   </ion-header>
 
+  
   <ion-grid *ngIf="podcasts.length" style="margin-bottom: 55px">
     <ion-row>
       <ion-col size="6" *ngFor="let podcast of podcasts; let i = index">
         <ion-card (click)="openPodcast(podcast, i)" style="min-height: 210px">
+          <ng-container *ngIf="state && state.playing">
+            <ion-icon
+              size="large"
+              *ngIf="currentPodcast.index === i"
+              style="position: absolute; top: 0; right: 0; margin: 10px"
+              color="dark"
+              name="pause-circle-outline"
+            ></ion-icon>
+          </ng-container>
+
+          <ng-container *ngIf="state && !state.playing">
+            <ion-icon
+              size="large"
+              style="position: absolute; top: 0; right: 0; margin: 10px"
+              color="dark"
+              name="play-circle-outline"
+            ></ion-icon>
+          </ng-container>
+
           <ion-icon
             size="large"
             *ngIf="currentPodcast.index !== i"
             style="position: absolute; top: 0; right: 0; margin: 10px"
             color="dark"
             name="play-circle-outline"
-          ></ion-icon>
-
-          <ion-icon
-            size="large"
-            *ngIf="currentPodcast.index === i"
-            style="position: absolute; top: 0; right: 0; margin: 10px"
-            color="dark"
-            name="pause-circle-outline"
           ></ion-icon>
 
           <img src="{{podcast.image}}" />

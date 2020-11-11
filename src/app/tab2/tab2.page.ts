@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from "@angular/core";
+import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import {
@@ -14,11 +14,11 @@ import {
 import { AudioService } from "./../audio.service";
 import { PodcastService } from "./../podcast.service";
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  selector: "app-tab2",
+  templateUrl: "tab2.page.html",
+  styleUrls: ["tab2.page.scss"],
 })
-export class Tab2Page implements AfterViewInit {
+export class Tab2Page {
   podcasts: any = [];
   currentPodcast: any = {};
   state: any = {};
@@ -28,27 +28,44 @@ export class Tab2Page implements AfterViewInit {
     private audioService: AudioService,
     private store: Store<any>,
     public loadingCtrl: LoadingController
-  ) {
-    this.getPodcasts();
-  }
-  ngAfterViewInit(): void {
+  ) {}
+
+  ionViewWillEnter(): void {
     this.store.select("appState").subscribe((value) => {
       if (value) {
+        this.state = value.media;
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
         }
       }
     });
+
+    this.getPodcasts();
+  }
+
+  ionViewWillLeave() {
+    this.store.dispatch({
+      type: GET_PODCASTS,
+      payload: { value: [] },
+    });
   }
 
   openPodcast(podcast, index) {
-    let currentPodcast = { index, podcast };
-    this.store.dispatch({
-      type: SET_CURRENT_TRACK,
-      payload: { value: currentPodcast },
-    });
-    this.playStream(podcast.url);
+    if (this.currentPodcast.index === index) {
+      if (this.state.playing) {
+        this.audioService.pause();
+      } else {
+        this.audioService.play();
+      }
+    } else {
+      let currentPodcast = { index, podcast };
+      this.store.dispatch({
+        type: SET_CURRENT_TRACK,
+        payload: { value: currentPodcast },
+      });
+      this.playStream(podcast.url);
+    }
   }
 
   resetState() {
@@ -119,7 +136,7 @@ export class Tab2Page implements AfterViewInit {
 
   async getPodcasts() {
     let loader = await this.presentLoader();
-    this.podcastService.getPodcasts().subscribe((podcasts) => {
+    this.podcastService.getPodcasts2().subscribe((podcasts) => {
       //this.podcasts = podcasts;
       this.store.dispatch({
         type: GET_PODCASTS,
