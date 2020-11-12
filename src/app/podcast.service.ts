@@ -86,9 +86,6 @@ export class PodcastService {
         "Companies are finding that their interactions with crypto-assets are increasing. In this episode",
       color: "red",
     },
-  ];
-
-  podcastsTab3: any = [
     {
       url:
         "https://mcdn.podbean.com/mf/player-preload/q2w9pm/Future_of_Marketing_Podcast_FINAL.mp3",
