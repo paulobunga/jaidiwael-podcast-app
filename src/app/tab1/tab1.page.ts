@@ -43,15 +43,10 @@ export class Tab1Page {
     this.getPodcasts();
   }
 
-  ionViewWillLeave() {
-    this.store.dispatch({
-      type: GET_PODCASTS,
-      payload: { value: [] },
-    });
-  }
+  
 
   openPodcast(podcast, index) {
-    if (this.currentPodcast.index === index) {
+    if (this.currentPodcast.podcast === podcast) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {
@@ -63,6 +58,7 @@ export class Tab1Page {
         type: SET_CURRENT_TRACK,
         payload: { value: currentPodcast },
       });
+
       this.playStream(podcast.url);
     }
   }

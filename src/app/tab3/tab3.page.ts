@@ -30,33 +30,43 @@ export class Tab3Page {
     public loadingCtrl: LoadingController
   ) {}
 
-  ionViewWillEnter() {
+  ionViewDidEnter(): void {
     this.store.select("appState").subscribe((value) => {
       if (value) {
         this.state = value.media;
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
+          
         }
       }
     });
+
     this.getPodcasts();
   }
 
-  ionViewWillLeave() {
-    this.store.dispatch({
-      type: GET_PODCASTS,
-      payload: { value: [] },
-    });
-  }
+ 
 
   openPodcast(podcast, index) {
-    let currentPodcast = { index, podcast };
-    this.store.dispatch({
-      type: SET_CURRENT_TRACK,
-      payload: { value: currentPodcast },
-    });
-    this.playStream(podcast.url);
+    if (this.currentPodcast.podcast === podcast) {
+      if (this.state.playing) {
+        this.audioService.pause();
+      } else {
+        this.audioService.play();
+      }
+    } else {
+      let currentPodcast = { index, podcast };
+      this.store.dispatch({
+        type: SET_CURRENT_TRACK,
+        payload: { value: currentPodcast },
+      });
+
+      this.playStream(podcast.url);
+    }
+  }
+
+  pausePodcast() {
+    this.audioService.pause();
   }
 
   resetState() {
@@ -127,11 +137,11 @@ export class Tab3Page {
 
   async getPodcasts() {
     let loader = await this.presentLoader();
-    this.podcastService.getRadioStations().subscribe((stations) => {
+    this.podcastService.getRadioStations().subscribe((podcasts) => {
       //this.podcasts = podcasts;
       this.store.dispatch({
         type: GET_PODCASTS,
-        payload: { value: stations },
+        payload: { value: podcasts },
       });
       loader.dismiss();
     });

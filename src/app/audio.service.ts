@@ -39,6 +39,7 @@ export class AudioService {
 
     return Observable.create((observer) => {
       // Play audio
+      
       this.audioObj.src = url;
       this.audioObj.load();
       this.audioObj.play();

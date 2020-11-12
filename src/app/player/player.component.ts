@@ -11,6 +11,7 @@ import { IonContent, LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import { distinctUntilChanged, filter, map, pluck } from "rxjs/operators";
 import { RESET } from "src/store";
+import { SHOW_PLAYER } from "./../../store/index";
 import { AudioService } from "./../audio.service";
 import { PodcastService } from "./../podcast.service";
 
@@ -55,14 +56,14 @@ export class PlayerComponent implements AfterViewInit {
     public loadingCtrl: LoadingController
   ) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.store.select("appState").subscribe((value: any) => {
       if (value) {
         this.state = value.media;
+        this.displayFooter = value.showPlayer ? "active" : "inactive";
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
-          this.displayFooter = "active";
         }
       }
     });
@@ -120,7 +121,7 @@ export class PlayerComponent implements AfterViewInit {
   }
 
   close() {
-    this.displayFooter = "inactive";
+    this.store.dispatch({ type: SHOW_PLAYER, payload: { value: false } });
     this.resetState();
   }
 

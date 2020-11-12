@@ -16,9 +16,17 @@ export const GET_PODCASTS = "GET_PODCASTS";
 export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
 export const GET_CURRENT_TRACK = "GET_CURRENT_TRACK";
 
-export function mediaStateReducer(state, action: MediaAction) {
+export const SHOW_PLAYER = "SHOW_PLAYER";
+
+export function mediaStateReducer(state: any, action: MediaAction) {
   let payload = action.payload;
   switch (action.type) {
+    case SHOW_PLAYER:
+      return {
+        ...state,
+        showPlayer: true,
+      };
+
     case GET_PODCASTS:
       return {
         ...state,
@@ -82,12 +90,12 @@ export function mediaStateReducer(state, action: MediaAction) {
         },
       };
     case RESET:
-      return {
-        ...state,
-        currentPodcast: null,
-        media: {},
-      };
+      state = Object.assign({}, state);
+      state.media = {};
+      return state;
     default:
+      state = {};
+      state.media = {};
       return state;
   }
 }
