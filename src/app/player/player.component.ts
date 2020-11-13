@@ -121,7 +121,6 @@ export class PlayerComponent implements AfterViewInit {
   }
 
   close() {
-    this.store.dispatch({ type: SHOW_PLAYER, payload: { value: false } });
     this.resetState();
   }
 
