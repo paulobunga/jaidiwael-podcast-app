@@ -1739,133 +1739,134 @@ declare module amp.Player {
      * Interface for the options of [[amp]] when it is created.
      */
     interface Options {
-        /**
-         * Tech order for the player to decide on which tech to use.
-         */
-        techOrder?: string[];
+      nativeControlsForTouch?: boolean,
+      /**
+       * Tech order for the player to decide on which tech to use.
+       */
+      techOrder?: string[];
 
-        /**
-         * Set the autoplay for the next playback.
-         */
-        autoplay?: boolean;
+      /**
+       * Set the autoplay for the next playback.
+       */
+      autoplay?: boolean;
 
-        /**
-         * Set whether the controls should be displayed. Default is false.
-         */
-        controls?: boolean;
+      /**
+       * Set whether the controls should be displayed. Default is false.
+       */
+      controls?: boolean;
 
-        /**
-         * Set whether the video should follow the width of its container while keeping
-         * the video aspect ratio. Default is false.
-         */
-        fluid?: boolean;
+      /**
+       * Set whether the video should follow the width of its container while keeping
+       * the video aspect ratio. Default is false.
+       */
+      fluid?: boolean;
 
-        /**
-         * Sets the image that displays before the video begins playing. Defaults to no poster displayed.
-         */
-        poster?: string;
+      /**
+       * Sets the image that displays before the video begins playing. Defaults to no poster displayed.
+       */
+      poster?: string;
 
-        /**
-         * Sets the alt text for the img tag of the poster. Default is an empty string.
-         */
-        posterAltString?: string;
+      /**
+       * Sets the alt text for the img tag of the poster. Default is an empty string.
+       */
+      posterAltString?: string;
 
-        /**
-         * Set the configuration for the Tracing of [[amp]]
-         */
-        traceConfig?: TraceConfig;
+      /**
+       * Set the configuration for the Tracing of [[amp]]
+       */
+      traceConfig?: TraceConfig;
 
-        /**
-         * Heuristics profile Name
-         */
-        heuristicProfile?: string;
+      /**
+       * Heuristics profile Name
+       */
+      heuristicProfile?: string;
 
-        /**
-         * custom Player settings.
-         * this is a JSON object.
-         * Ex: options.customPlayerSettings = { "customHeuristicSettings": { "windowSizeHeuristics": false } }
-         */
-        customPlayerSettings?: any;
+      /**
+       * custom Player settings.
+       * this is a JSON object.
+       * Ex: options.customPlayerSettings = { "customHeuristicSettings": { "windowSizeHeuristics": false } }
+       */
+      customPlayerSettings?: any;
 
-        /**
-         * Custom Player logo.
-         * Ex: logo: { enabled: true }
-         */
-        logo?: LogoConfig;
+      /**
+       * Custom Player logo.
+       * Ex: logo: { enabled: true }
+       */
+      logo?: LogoConfig;
 
-        /**
-         * Skin configuration of [[amp]]
-         */
-        skinConfig?: SkinConfig;
+      /**
+       * Skin configuration of [[amp]]
+       */
+      skinConfig?: SkinConfig;
 
-        /**
-         * List of sources. SDN plugins can modify source URLs using this field.
-         * SDN plugin can modify source URLs only after it catches [[amp.eventName.sourceset]] event triggered by AMP.
-         */
-        sourceList?: Source[];
+      /**
+       * List of sources. SDN plugins can modify source URLs using this field.
+       * SDN plugin can modify source URLs only after it catches [[amp.eventName.sourceset]] event triggered by AMP.
+       */
+      sourceList?: Source[];
 
-        /**
-         * Current SDN plugin
-         */
-        sdn?: SDN;
+      /**
+       * Current SDN plugin
+       */
+      sdn?: SDN;
 
-        /**
-         * Hot keys to control playback (volume, current time, toggle full screen)
-         */
-        hotKeys?: HotKeys;
+      /**
+       * Hot keys to control playback (volume, current time, toggle full screen)
+       */
+      hotKeys?: HotKeys;
 
-        /**
-         * Configuration options for playback speed control
-         */
-        playbackSpeed?: PlaybackSpeedOptions;
+      /**
+       * Configuration options for playback speed control
+       */
+      playbackSpeed?: PlaybackSpeedOptions;
 
-        /**
-         * Plugin configuration.
-         */
-        plugins?: any;
+      /**
+       * Plugin configuration.
+       */
+      plugins?: any;
 
-        /**
-         * CorsConfig to be used for request made by AzureMediaPlayer.
-         * Currently applied to all request [ Poster, TextTrack, Key, Fragments and Manifest ] for html5 tech.
-         * Applied to [ Poster, TextTrack ]in all other tech's.
-         */
-        corsPolicy?: CorsConfig;
+      /**
+       * CorsConfig to be used for request made by AzureMediaPlayer.
+       * Currently applied to all request [ Poster, TextTrack, Key, Fragments and Manifest ] for html5 tech.
+       * Applied to [ Poster, TextTrack ]in all other tech's.
+       */
+      corsPolicy?: CorsConfig;
 
-        /**
-         * Segment download response headers required.
-         * When provided downloadCompleted of BufferData would have a responseHeaders object containing the headers requested.
-         * Available only on AzureHtml5JS tech.
-         */
-        headers?: string[];
+      /**
+       * Segment download response headers required.
+       * When provided downloadCompleted of BufferData would have a responseHeaders object containing the headers requested.
+       * Available only on AzureHtml5JS tech.
+       */
+      headers?: string[];
 
-        /**
-         * Max time for stale data. Any Media data more then staleDataTimeLimitInSec behind
-         * current playback position is flushed.
-         * Disabled by default.
-         */
-        staleDataTimeLimitInSec?: number;
+      /**
+       * Max time for stale data. Any Media data more then staleDataTimeLimitInSec behind
+       * current playback position is flushed.
+       * Disabled by default.
+       */
+      staleDataTimeLimitInSec?: number;
 
-        /**
-         * Boolean value specifying if audio should be muted at start.
-         */
-        muted?: boolean;
+      /**
+       * Boolean value specifying if audio should be muted at start.
+       */
+      muted?: boolean;
 
-        /**
-         * Configuration options for CEA708 closed captions
-         */
-        cea708CaptionsSettings?: Cea708CaptionsSettings;
+      /**
+       * Configuration options for CEA708 closed captions
+       */
+      cea708CaptionsSettings?: Cea708CaptionsSettings;
 
-        /**
-         * Configuration options for IMSC1 captions
-         */
-        imsc1CaptionsSettings?: Imsc1CaptionsSettings[];
+      /**
+       * Configuration options for IMSC1 captions
+       */
+      imsc1CaptionsSettings?: Imsc1CaptionsSettings[];
 
-        /**
-         * Object specifying wall clock time display settings.
-         * If enabled, will display an overlay with the wall clock time, and change how the time is displayed on the control bar.
-         * Disabled by default.
-         */
-        wallClockTimeDisplaySettings?: WallClockTimeDisplaySettings;
+      /**
+       * Object specifying wall clock time display settings.
+       * If enabled, will display an overlay with the wall clock time, and change how the time is displayed on the control bar.
+       * Disabled by default.
+       */
+      wallClockTimeDisplaySettings?: WallClockTimeDisplaySettings;
     }
 
     /**

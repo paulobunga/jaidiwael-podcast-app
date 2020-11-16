@@ -11,7 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid *ngIf="podcasts.length > 0" style="margin-bottom: 55px">
+  <ion-grid *ngIf="podcasts && podcasts.length > 0" style="margin-bottom: 55px">
     <ion-row>
       <ion-col size="6" *ngFor="let podcast of podcasts; let i = index">
         <ion-card (click)="openPodcast(podcast, i)" style="max-height: 180px">

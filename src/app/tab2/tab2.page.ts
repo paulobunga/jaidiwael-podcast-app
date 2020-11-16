@@ -29,7 +29,6 @@ export class Tab2Page {
     private store: Store<any>,
     public loadingCtrl: LoadingController
   ) {}
-
   ionViewWillEnter(): void {
     this.store.select("appState").subscribe((value) => {
       if (value) {
@@ -42,6 +41,25 @@ export class Tab2Page {
     });
 
     this.getPodcasts();
+  }
+
+  ionViewDidLeave(): void {
+    this.store.dispatch({
+      type: SET_CURRENT_TRACK,
+      payload: { value: {} },
+    });
+  }
+
+  getImage(podcast) {
+    return podcast.contentMedias[
+      podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
+    ].url;
+  }
+
+  getAudio(podcast) {
+    return podcast.contentMedias[
+      podcast.contentMedias.findIndex((x) => x.title === "mp3")
+    ].url;
   }
 
   openPodcast(podcast, index) {
@@ -57,7 +75,8 @@ export class Tab2Page {
         type: SET_CURRENT_TRACK,
         payload: { value: currentPodcast },
       });
-      this.playStream(podcast.url);
+
+      this.playStream(this.getAudio(podcast));
     }
   }
 
@@ -129,18 +148,6 @@ export class Tab2Page {
           });
       }
     });
-  }
-
-  getImage(podcast) {
-    return podcast.contentMedias[
-      podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
-    ].url;
-  }
-
-  getAudio(podcast) {
-    return podcast.contentMedias[
-      podcast.contentMedias.findIndex((x) => x.title === "mp3")
-    ].url;
   }
 
   async getPodcasts() {

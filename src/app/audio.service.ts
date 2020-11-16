@@ -14,7 +14,11 @@ export class AudioService {
 
   public initialize = (playerElem) => {
     //Create our audio player with element ref from Ionic **Simple as that :)
-    this.player = amp(playerElem, {
+    if (this.player) {
+      console.log('You already have a player instance');
+    } else {
+      this.player = amp(playerElem, {
+      nativeControlsForTouch: false,
       techOrder: [
         "azureHtml5JS",
         "flashSS",
@@ -26,6 +30,7 @@ export class AudioService {
       controls: true,
       poster: "",
     });
+    }
   };
 
   private streamObservable(url) {
@@ -44,7 +49,7 @@ export class AudioService {
 
     const addEvents = function (obj, events, handler) {
       events.forEach((event) => {
-        obj.addEventListener(event, handler);
+        obj.addEventListener(event, handler, { passive: true});
       });
     };
 
