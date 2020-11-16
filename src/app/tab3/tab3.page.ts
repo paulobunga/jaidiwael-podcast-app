@@ -80,13 +80,13 @@ export class Tab3Page {
       const audioObj = event.target;
 
       switch (event.type) {
-        case "canplay":
+        case amp.eventName.canplaythrough:
           return this.store.dispatch({
             type: CANPLAY,
             payload: { value: true },
           });
 
-        case "loadedmetadata":
+        case amp.eventName.loadedmetadata:
           return this.store.dispatch({
             type: LOADEDMETADATA,
             payload: {
@@ -102,19 +102,19 @@ export class Tab3Page {
             },
           });
 
-        case "playing":
+        case amp.eventName.playing:
           return this.store.dispatch({
             type: PLAYING,
             payload: { value: true },
           });
 
-        case "pause":
+        case amp.eventName.pause:
           return this.store.dispatch({
             type: PLAYING,
             payload: { value: false },
           });
 
-        case "timeupdate":
+        case amp.eventName.timeupdate:
           return this.store.dispatch({
             type: TIMEUPDATE,
             payload: {
@@ -126,7 +126,7 @@ export class Tab3Page {
             },
           });
 
-        case "loadstart":
+        case amp.eventName.loadstart:
           return this.store.dispatch({
             type: LOADSTART,
             payload: { value: true },

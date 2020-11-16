@@ -5,13 +5,12 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { IonContent, LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import { distinctUntilChanged, filter, map, pluck } from "rxjs/operators";
 import { RESET } from "src/store";
-import { SHOW_PLAYER } from "./../../store/index";
 import { AudioService } from "./../audio.service";
 import { PodcastService } from "./../podcast.service";
 
@@ -40,6 +39,7 @@ import { PodcastService } from "./../podcast.service";
   ],
 })
 export class PlayerComponent implements AfterViewInit {
+  @ViewChild("audio", { read: ElementRef }) audioPlayer: ElementRef;
   public currentPodcast: any = {};
   public podcasts: any[];
 
@@ -49,6 +49,8 @@ export class PlayerComponent implements AfterViewInit {
   displayFooter: string = "inactive";
   @ViewChild(IonContent) content: IonContent;
 
+  player: amp.Player;
+
   constructor(
     public audioService: AudioService,
     public podcastService: PodcastService,
@@ -57,6 +59,12 @@ export class PlayerComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
+
+    let playerElem = this.audioPlayer.nativeElement;
+
+    
+    this.audioService.initialize(playerElem);
+
     this.store.select("appState").subscribe((value: any) => {
       if (value) {
         this.state = value.media;
@@ -71,7 +79,7 @@ export class PlayerComponent implements AfterViewInit {
     this.store
       .select("appState")
       .pipe(
-        pluck("media", "canplay"),
+        pluck("media", "canplaythrough"),
         filter((value) => value === true)
       )
       .subscribe(() => {

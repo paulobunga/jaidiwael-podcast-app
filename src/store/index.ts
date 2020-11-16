@@ -50,7 +50,7 @@ export function mediaStateReducer(state: any, action: MediaAction) {
         ...state,
         media: {
           ...state.media,
-          canplay: payload.value,
+          canplaythrough: payload.value,
         },
       };
     case LOADEDMETADATA:
