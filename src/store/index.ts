@@ -5,7 +5,7 @@ export interface MediaAction extends Action {
   payload?: any;
 }
 
-export const CANPLAY = "CANPLAY";
+export const CANPLAYTHROUGH = "CANPLAYTHROUGH";
 export const LOADEDMETADATA = "LOADEDMETADATA";
 export const PLAYING = "PLAYING";
 export const TIMEUPDATE = "TIMEUPDATE";
@@ -17,6 +17,8 @@ export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
 export const GET_CURRENT_TRACK = "GET_CURRENT_TRACK";
 
 export const SHOW_PLAYER = "SHOW_PLAYER";
+
+export const START = "START"
 
 const INITIALSTATE = {
   media: {},
@@ -54,7 +56,7 @@ export function mediaStateReducer(
         currentPodcast: payload.value,
       };
 
-    case CANPLAY:
+    case CANPLAYTHROUGH:
       return {
         ...state,
         media: {
@@ -81,6 +83,16 @@ export function mediaStateReducer(
           playing: payload.value,
         },
       };
+    
+    case START:
+      return {
+        ...state,
+        media: {
+          ...state.media,
+          playing: true
+        }
+      }
+    
     case TIMEUPDATE:
       return {
         ...state,
@@ -100,6 +112,7 @@ export function mediaStateReducer(
       };
     case RESET:
       state = Object.assign({}, state);
+      
       state.media = {};
       return state;
     default:

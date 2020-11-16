@@ -35,16 +35,17 @@ export class AudioService {
 
   private streamObservable(url) {
     //Replace native audio events with amd event naming convention (This will map properly to current player)
-    let events: any = [
-      amp.eventName.ended,
-      amp.eventName.error,
-      amp.eventName.play,
-      amp.eventName.playing,
-      amp.eventName.pause,
-      amp.eventName.timeupdate,
-      amp.eventName.canplaythrough,
-      amp.eventName.loadedmetadata,
-      amp.eventName.loadstart,
+    let events = [
+      "ended",
+      "error",
+      "play",
+      "playing",
+      "pause",
+      "timeupdate",
+      "canplaythrough",
+      "loadedmetadata",
+      "loadstart",
+      "start"
     ];
 
     const addEvents = function (obj, events, handler) {
@@ -73,6 +74,8 @@ export class AudioService {
       }
       //this.player.load();
       this.player.play();
+
+    
 
       // Media Events
       const handler = (event) => observer.next(event);

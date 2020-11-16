@@ -2,13 +2,14 @@ import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import {
-  CANPLAY,
+  CANPLAYTHROUGH,
   GET_PODCASTS,
   LOADEDMETADATA,
   LOADSTART,
   PLAYING,
   RESET,
   SET_CURRENT_TRACK,
+  START,
   TIMEUPDATE,
 } from "src/store";
 import { AudioService } from "./../audio.service";
@@ -43,7 +44,6 @@ export class Tab1Page {
     this.getPodcasts();
   }
 
-  
   getImage(podcast) {
     return podcast.contentMedias[
       podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
@@ -89,13 +89,13 @@ export class Tab1Page {
       const audioObj = event.target;
 
       switch (event.type) {
-        case amp.eventName.canplaythrough:
+        case "canplaythrough":
           return this.store.dispatch({
-            type: CANPLAY,
+            type: CANPLAYTHROUGH,
             payload: { value: true },
           });
 
-        case amp.eventName.loadedmetadata:
+        case "loadedmetadata":
           return this.store.dispatch({
             type: LOADEDMETADATA,
             payload: {
@@ -111,19 +111,19 @@ export class Tab1Page {
             },
           });
 
-        case amp.eventName.playing:
+        case "playing":
           return this.store.dispatch({
             type: PLAYING,
             payload: { value: true },
           });
 
-        case amp.eventName.pause:
+        case "pause":
           return this.store.dispatch({
             type: PLAYING,
             payload: { value: false },
           });
 
-        case amp.eventName.timeupdate:
+        case "timeupdate":
           return this.store.dispatch({
             type: TIMEUPDATE,
             payload: {
@@ -135,9 +135,15 @@ export class Tab1Page {
             },
           });
 
-        case amp.eventName.loadstart:
+        case "loadstart":
           return this.store.dispatch({
             type: LOADSTART,
+            payload: { value: true },
+          });
+
+        case "start":
+          return this.store.dispatch({
+            type: START,
             payload: { value: true },
           });
       }

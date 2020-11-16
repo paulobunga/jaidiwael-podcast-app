@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import {
-  CANPLAY,
+  CANPLAYTHROUGH,
   GET_PODCASTS,
   LOADEDMETADATA,
   LOADSTART,
@@ -43,7 +43,6 @@ export class Tab3Page {
     this.getPodcasts();
   }
 
-  
   getImage(podcast) {
     return podcast.contentMedias[
       podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
@@ -97,7 +96,7 @@ export class Tab3Page {
       switch (event.type) {
         case amp.eventName.canplaythrough:
           return this.store.dispatch({
-            type: CANPLAY,
+            type: CANPLAYTHROUGH,
             payload: { value: true },
           });
 

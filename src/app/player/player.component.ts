@@ -67,12 +67,11 @@ export class PlayerComponent implements AfterViewInit {
       if (value) {
         this.state = value.media;
         //this.displayFooter = value.showPlayer ? "active" : "inactive";
+        console.log(this.state);
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
           this.displayFooter = "active";
-
-          
         }
       }
     });
@@ -123,6 +122,7 @@ export class PlayerComponent implements AfterViewInit {
 
   play() {
     this.audioService.play();
+    this.displayFooter = "active";
   }
 
   stop() {
@@ -131,6 +131,7 @@ export class PlayerComponent implements AfterViewInit {
 
   close() {
     this.resetState();
+    this.displayFooter = "inactive";
   }
 
   next() {
