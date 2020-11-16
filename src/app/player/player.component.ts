@@ -59,19 +59,20 @@ export class PlayerComponent implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-
     let playerElem = this.audioPlayer.nativeElement;
 
-    
     this.audioService.initialize(playerElem);
 
     this.store.select("appState").subscribe((value: any) => {
       if (value) {
         this.state = value.media;
-        this.displayFooter = value.showPlayer ? "active" : "inactive";
+        //this.displayFooter = value.showPlayer ? "active" : "inactive";
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
+          this.displayFooter = "active";
+
+          
         }
       }
     });

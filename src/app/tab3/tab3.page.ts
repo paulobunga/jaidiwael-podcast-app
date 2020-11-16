@@ -43,13 +43,7 @@ export class Tab3Page {
     this.getPodcasts();
   }
 
-  ionViewDidLeave(): void {
-    this.store.dispatch({
-      type: SET_CURRENT_TRACK,
-      payload: { value: {} },
-    });
-  }
-
+  
   getImage(podcast) {
     return podcast.contentMedias[
       podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
@@ -89,9 +83,15 @@ export class Tab3Page {
     this.store.dispatch({ type: RESET });
   }
 
+  close() {
+    this.audioService.stop();
+    this.store.dispatch({ type: RESET });
+  }
+
   playStream(url) {
     this.resetState();
     this.audioService.playStream(url).subscribe((event) => {
+      console.log(event.type);
       const audioObj = event.target;
 
       switch (event.type) {

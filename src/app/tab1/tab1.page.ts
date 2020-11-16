@@ -43,13 +43,7 @@ export class Tab1Page {
     this.getPodcasts();
   }
 
-  ionViewDidLeave(): void {
-    this.store.dispatch({
-      type: SET_CURRENT_TRACK,
-      payload: { value: {} },
-    });
-  }
-
+  
   getImage(podcast) {
     return podcast.contentMedias[
       podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
