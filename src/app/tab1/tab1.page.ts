@@ -57,7 +57,7 @@ export class Tab1Page {
   }
 
   openPodcast(podcast, index) {
-    if (this.currentPodcast.podcast.id === podcast.id) {
+    if (this.currentPodcast.podcast === podcast) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {

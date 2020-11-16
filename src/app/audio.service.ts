@@ -13,7 +13,6 @@ export class AudioService {
   constructor() {}
 
   public initialize = (playerElem) => {
-
     //Create our audio player with element ref from Ionic **Simple as that :)
     this.player = amp(playerElem, {
       techOrder: [
@@ -59,12 +58,14 @@ export class AudioService {
     return Observable.create((observer) => {
       // Play audio
 
-      this.player && this.player.src([
-        {
-          src: url,
-          type: "audio/mp3",
-        },
-      ]);
+      if (this.player) {
+        this.player.src([
+          {
+            src: url,
+            type: "audio/mp3",
+          },
+        ]);
+      }
       //this.player.load();
       this.player.play();
 
