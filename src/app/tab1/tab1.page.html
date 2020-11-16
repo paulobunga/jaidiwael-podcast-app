@@ -11,10 +11,10 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-grid *ngIf="podcasts.length" style="margin-bottom: 55px">
+  <ion-grid *ngIf="podcasts.length > 0" style="margin-bottom: 55px">
     <ion-row>
       <ion-col size="6" *ngFor="let podcast of podcasts; let i = index">
-        <ion-card (click)="openPodcast(podcast, i)" style="min-height: 210px">
+        <ion-card (click)="openPodcast(podcast, i)" style="max-height: 180px">
           <ng-container *ngIf="state && !!state.playing">
             <ion-icon
               size="large"
@@ -43,13 +43,13 @@
             name="play-circle-outline"
           ></ion-icon>
 
-          <img src="{{podcast.image}}" />
+          <img src="{{getImage(podcast)}}" />
           <ion-card-header>
             <ion-card-subtitle style="font-size: 8px"
               >{{podcast.author}}</ion-card-subtitle
             >
             <ion-card-title style="font-size: 10px"
-              >{{podcast.name}}</ion-card-title
+              >{{podcast.title}}</ion-card-title
             >
           </ion-card-header>
           <ion-card-content class="truncate" style="font-size: 10px">

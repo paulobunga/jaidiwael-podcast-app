@@ -18,7 +18,16 @@ export const GET_CURRENT_TRACK = "GET_CURRENT_TRACK";
 
 export const SHOW_PLAYER = "SHOW_PLAYER";
 
-export function mediaStateReducer(state: any, action: MediaAction) {
+const INITIALSTATE = {
+  media: {},
+  podcasts: [],
+  currentPodcast: {},
+};
+
+export function mediaStateReducer(
+  state: any = INITIALSTATE,
+  action: MediaAction
+) {
   let payload = action.payload;
   switch (action.type) {
     case SHOW_PLAYER:

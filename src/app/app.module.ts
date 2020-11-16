@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -9,13 +10,13 @@ import { StoreModule } from "@ngrx/store";
 import { mediaStateReducer } from "src/store";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     StoreModule.forRoot({

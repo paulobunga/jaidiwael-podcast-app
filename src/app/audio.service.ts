@@ -23,7 +23,7 @@ export class AudioService {
         "silverlightSS",
         "html5",
       ],
-      autoplay: false,
+      autoplay: true,
       controls: true,
       poster: "",
     });
@@ -59,7 +59,7 @@ export class AudioService {
     return Observable.create((observer) => {
       // Play audio
 
-      this.player.src([
+      this.player && this.player.src([
         {
           src: url,
           type: "audio/mp3",

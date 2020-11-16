@@ -37,15 +37,12 @@ export class Tab3Page {
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
-          
         }
       }
     });
 
     this.getPodcasts();
   }
-
- 
 
   openPodcast(podcast, index) {
     if (this.currentPodcast.podcast === podcast) {
@@ -135,9 +132,21 @@ export class Tab3Page {
     });
   }
 
+  getImage(podcast) {
+    return podcast.contentMedias[
+      podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
+    ].url;
+  }
+
+  getAudio(podcast) {
+    return podcast.contentMedias[
+      podcast.contentMedias.findIndex((x) => x.title === "mp3")
+    ].url;
+  }
+
   async getPodcasts() {
     let loader = await this.presentLoader();
-    this.podcastService.getRadioStations().subscribe((podcasts) => {
+    this.podcastService.getPodcasts().subscribe((podcasts) => {
       //this.podcasts = podcasts;
       this.store.dispatch({
         type: GET_PODCASTS,

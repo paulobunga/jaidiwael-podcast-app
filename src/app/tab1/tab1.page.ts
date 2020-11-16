@@ -43,10 +43,21 @@ export class Tab1Page {
     this.getPodcasts();
   }
 
-  
+ 
+  getImage(podcast) {
+    return podcast.contentMedias[
+      podcast.contentMedias.findIndex((x) => x.title === "thumbnail")
+    ].url;
+  }
+
+  getAudio(podcast) {
+    return podcast.contentMedias[
+      podcast.contentMedias.findIndex((x) => x.title === "mp3")
+    ].url;
+  }
 
   openPodcast(podcast, index) {
-    if (this.currentPodcast.podcast === podcast) {
+    if (this.currentPodcast.podcast.id === podcast.id) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {
@@ -59,7 +70,7 @@ export class Tab1Page {
         payload: { value: currentPodcast },
       });
 
-      this.playStream(podcast.url);
+      this.playStream(this.getAudio(podcast));
     }
   }
 
