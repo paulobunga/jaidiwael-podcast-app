@@ -76,36 +76,43 @@
   --ion-color-light-tint: #f5f6f9;
 
   /** Custom Colors **/
-  --ion-color-yellow: #ffd700;
-  --ion-color-yellow-rgb: 255, 215, 0;
-  --ion-color-yellow-contrast: #000000;
-  --ion-color-yellow-contrast-rgb: 0, 0, 0;
-  --ion-color-yellow-shade: #e0bd00;
-  --ion-color-yellow-tint: #ffdb1a;
+  --ion-color-play-pupple: #6a4a97;
+  --ion-color-play-pupple-rgb: 106, 74, 151;
+  --ion-color-play-pupple-contrast: #ffffff;
+  --ion-color-play-pupple-contrast-rgb: 255, 255, 255;
+  --ion-color-play-pupple-shade: #5d4185;
+  --ion-color-play-pupple-tint: #795ca1;
 
-  --ion-color-blue: #428cff;
-  --ion-color-blue-rgb: 66, 140, 255;
-  --ion-color-blue-contrast: #ffffff;
-  --ion-color-blue-contrast-rgb: 255, 255, 255;
-  --ion-color-blue-shade: #3a7be0;
-  --ion-color-blue-tint: #5598ff;
+  --ion-color-play-red: #ec4347;
+  --ion-color-play-red-rgb: 236,67,71;
+  --ion-color-play-red-contrast: #ffffff;
+  --ion-color-play-red-contrast-rgb: 255,255,255;
+  --ion-color-play-red-shade: #d03b3e;
+  --ion-color-play-red-tint: #ee5659;
 
-  --ion-color-red: #ff4961;
-  --ion-color-red-rgb: 255, 73, 97;
-  --ion-color-red-contrast: #ffffff;
-  --ion-color-red-contrast-rgb: 255, 255, 255;
-  --ion-color-red-shade: #e04055;
-  --ion-color-red-tint: #ff5b71;
+  --ion-color-play-gray: #8a8a8a;
+  --ion-color-play-gray-rgb: 138,138,138;
+  --ion-color-play-gray-contrast: #000000;
+  --ion-color-play-gray-contrast-rgb: 0,0,0;
+  --ion-color-play-gray-shade: #797979;
+  --ion-color-play-gray-tint: #969696;
 
-  --ion-color-green: #2fdf75;
-  --ion-color-green-rgb: 47, 223, 117;
-  --ion-color-green-contrast: #000000;
-  --ion-color-green-contrast-rgb: 0, 0, 0;
-  --ion-color-green-shade: #29c467;
-  --ion-color-green-tint: #44e283;
+  --ion-color-play-blue: #1f00be;
+  --ion-color-play-blue-rgb: 31,0,190;
+  --ion-color-play-blue-contrast: #ffffff;
+  --ion-color-play-blue-contrast-rgb: 255,255,255;
+  --ion-color-play-blue-shade: #1b00a7;
+  --ion-color-play-blue-tint: #351ac5;
+
+  --ion-color-play-indigo: #5573da;
+  --ion-color-play-indigo-rgb: 85,115,218;
+  --ion-color-play-indigo-contrast: #ffffff;
+  --ion-color-play-indigo-contrast-rgb: 255,255,255;
+  --ion-color-play-indigo-shade: #4b65c0;
+  --ion-color-play-indigo-tint: #6681de;
 }
 
-$customColors: ("red", "green", "blue", "yellow");
+$customColors: ("play-pupple", "play-red", "play-blue", "play-gray", "play-indigo");
 @each $color in $customColors {
   .ion-color-#{$color} {
     --ion-color-base: var(--ion-color-#{$color}) !important;

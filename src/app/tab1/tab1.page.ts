@@ -56,6 +56,22 @@ export class Tab1Page {
     ].url;
   }
 
+  getColor(podcast) {
+    let color = podcast.podcast.emission.codeCouleur;
+    switch (color) {
+      case "#8a8a8a":
+        return "play-gray";
+      case "#5573da":
+        return "play-indigo";
+      case "#6a4a97":
+        return "play-pupple";
+      case "#ec4347":
+        return "play-red";
+      case "#1f00be":
+        return "play-blue";
+    }
+  }
+
   openPodcast(podcast, index) {
     if (this.currentPodcast.podcast === podcast) {
       if (this.state.playing) {

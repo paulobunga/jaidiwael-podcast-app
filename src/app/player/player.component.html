@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-buttons slot="end">
         <ion-button
-          [color]="currentPodcast.podcast.color"
+          [color]="getColor()"
           shape="round"
           (click)="play()"
           *ngIf="!state.playing"
@@ -11,7 +11,7 @@
           <ion-icon slot="icon-only" name="play-circle"></ion-icon>
         </ion-button>
         <ion-button
-          [color]="currentPodcast.podcast.color"
+          [color]="getColor()"
           shape="round"
           (click)="pause()"
           *ngIf="!!state.playing"
@@ -20,7 +20,7 @@
         </ion-button>
 
         <ion-button
-          [color]="currentPodcast.podcast.color"
+          [color]="getColor()"
           shape="round"
           (click)="close()"
         >

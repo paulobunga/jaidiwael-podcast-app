@@ -66,8 +66,6 @@ export class PlayerComponent implements AfterViewInit {
     this.store.select("appState").subscribe((value: any) => {
       if (value) {
         this.state = value.media;
-        //this.displayFooter = value.showPlayer ? "active" : "inactive";
-        console.log(this.state);
         this.podcasts = value.podcasts;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
@@ -167,6 +165,24 @@ export class PlayerComponent implements AfterViewInit {
       this.play();
     } else {
       this.audioService.seekTo(event.value);
+    }
+  }
+
+  getColor() {
+    if (this.currentPodcast) {
+      let color = this.currentPodcast.podcast.emission.codeCouleur;
+      switch (color) {
+        case "#8a8a8a":
+          return "play-gray";
+        case "#5573da":
+          return "play-indigo";
+        case "#6a4a97":
+          return "play-pupple";
+        case "#ec4347":
+          return "play-red";
+        case "#1f00be":
+          return "play-blue";
+      }
     }
   }
 }
