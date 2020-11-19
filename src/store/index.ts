@@ -112,7 +112,7 @@ export function mediaStateReducer(
       };
     case RESET:
       state = Object.assign({}, state);
-      
+      state.currentPodcast = null,
       state.media = {};
       return state;
     default:
