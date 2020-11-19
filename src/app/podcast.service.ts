@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class PodcastService {
-  baseUrl = "https://cors-anywhere.herokuapp.com/http://138.68.106.220:3000/";
+  baseUrl = "http://138.68.106.220:3000/";
 
   constructor(private http: HttpClient) {}
 
