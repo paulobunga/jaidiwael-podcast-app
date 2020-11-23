@@ -1,17 +1,7 @@
 import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
-import {
-  CANPLAYTHROUGH,
-  GET_PODCASTS,
-  LOADEDMETADATA,
-  LOADSTART,
-  PLAYING,
-  RESET,
-  SET_CURRENT_TRACK,
-  START,
-  TIMEUPDATE,
-} from "src/store";
+import { GET_PODCASTS, RESET, SET_CURRENT_TRACK } from "src/store";
 import { AudioService } from "./../audio.service";
 import { PodcastService } from "./../podcast.service";
 @Component({
@@ -86,7 +76,7 @@ export class Tab1Page {
         payload: { value: currentPodcast },
       });
 
-      this.playStream(this.getAudio(podcast));
+      this.audioService.playPodcastStream(this.getAudio(podcast));
     }
   }
 
@@ -97,73 +87,6 @@ export class Tab1Page {
   resetState() {
     this.audioService.stop();
     this.store.dispatch({ type: RESET });
-  }
-
-  playStream(url) {
-    this.resetState();
-    this.audioService.playStream(url).subscribe((event) => {
-      const audioObj = event.target;
-
-      switch (event.type) {
-        case "canplaythrough":
-          return this.store.dispatch({
-            type: CANPLAYTHROUGH,
-            payload: { value: true },
-          });
-
-        case "loadedmetadata":
-          return this.store.dispatch({
-            type: LOADEDMETADATA,
-            payload: {
-              value: true,
-              data: {
-                time: this.audioService.formatTime(
-                  audioObj.duration * 1000,
-                  "HH:mm:ss"
-                ),
-                timeSec: audioObj.duration,
-                mediaType: "mp3",
-              },
-            },
-          });
-
-        case "playing":
-          return this.store.dispatch({
-            type: PLAYING,
-            payload: { value: true },
-          });
-
-        case "pause":
-          return this.store.dispatch({
-            type: PLAYING,
-            payload: { value: false },
-          });
-
-        case "timeupdate":
-          return this.store.dispatch({
-            type: TIMEUPDATE,
-            payload: {
-              timeSec: audioObj.currentTime,
-              time: this.audioService.formatTime(
-                audioObj.currentTime * 1000,
-                "HH:mm:ss"
-              ),
-            },
-          });
-
-        case "loadstart":
-          return this.store.dispatch({
-            type: LOADSTART,
-            payload: { value: true },
-          });
-
-        case "start":
-          return this.store.dispatch({
-            type: START,
-            payload: { value: true },
-          });
-      }
-    });
   }
 
   async getPodcasts() {

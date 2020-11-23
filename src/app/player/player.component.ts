@@ -5,9 +5,18 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { IonContent, LoadingController } from "@ionic/angular";
+import { Router } from "@angular/router";
+import { IonContent, LoadingController, NavController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import { distinctUntilChanged, filter, map, pluck } from "rxjs/operators";
 import { RESET } from "src/store";
@@ -38,10 +47,11 @@ import { PodcastService } from "./../podcast.service";
     ]),
   ],
 })
-export class PlayerComponent implements AfterViewInit {
+export class PlayerComponent implements AfterViewInit, OnChanges {
   @ViewChild("audio", { read: ElementRef }) audioPlayer: ElementRef;
   public currentPodcast: any = {};
   public podcasts: any[];
+  public showVideo: boolean = false;
 
   seekbar: FormControl = new FormControl("seekbar");
   state: any = {};
@@ -49,13 +59,17 @@ export class PlayerComponent implements AfterViewInit {
   displayFooter: string = "inactive";
   @ViewChild(IonContent) content: IonContent;
 
+  @Input() isLarge: boolean;
+
   player: amp.Player;
 
   constructor(
     public audioService: AudioService,
     public podcastService: PodcastService,
     private store: Store<any>,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    public router: Router,
+    public navCtrl: NavController
   ) {}
 
   ngAfterViewInit(): void {
@@ -67,6 +81,8 @@ export class PlayerComponent implements AfterViewInit {
       if (value) {
         this.state = value.media;
         this.podcasts = value.podcasts;
+        this.showVideo = value.showVideo;
+        console.log(this.showVideo);
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
           this.displayFooter = "active";
@@ -183,6 +199,28 @@ export class PlayerComponent implements AfterViewInit {
         case "#1f00be":
           return "play-blue";
       }
+    }
+  }
+
+  navigate() {
+    if (!this.showVideo) {
+      this.navCtrl.navigateForward("podcast-player");
+    } else {
+      this.audioService.showVideoPlayer();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // changes.prop contains the old and the new value...
+    console.log(changes.isLarge);
+  }
+
+  canShowPlayer() {
+    if (this.showVideo) {
+      console.log("You can show player");
+      return "show-player";
+    } else {
+      return "hide-player";
     }
   }
 }

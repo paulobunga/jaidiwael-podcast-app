@@ -6,3 +6,13 @@
 ion-toolbar {
   --max-height: 50px !important;
 }
+
+.show-player {
+  height: 100%;
+  width: 100%;
+}
+
+.hide-player {
+  height: 0px;
+  width: 0px;
+}
