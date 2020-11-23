@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { SHOW_VIDEO } from "src/store";
 import { AudioService } from "./../audio.service";
 
 @Component({
@@ -67,9 +66,5 @@ export class PodcastPlayerPage {
 
   truncate(str, n) {
     return str.length > n ? str.substr(0, n - 1) + "&hellip;" : str;
-  }
-
-  ionViewDidLeave() {
-    this.store.dispatch({ type: SHOW_VIDEO, payload: { value: false } });
   }
 }

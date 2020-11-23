@@ -31,6 +31,7 @@ export class AudioService {
       if (value) {
         this.state = value.media;
         this.podcasts = value.podcasts;
+
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
         }
@@ -57,6 +58,8 @@ export class AudioService {
         poster: "",
       });
     }
+
+    this.player.ready(() => {});
   };
 
   public showVideoPlayer = () => {
@@ -66,54 +69,12 @@ export class AudioService {
     }
   };
 
-  changePlayer(playerElem) {
-    /**
-     * 1. Pause current player
-     */
-
-    //this.player.dispose();
-
-    let timeToSeek = this.player.currentTime();
-
-    console.log(timeToSeek);
-
-    this.player.volume(0);
-
-    // this.player = amp(playerElem, {
-    //   nativeControlsForTouch: false,
-    //   techOrder: [
-    //     "azureHtml5JS",
-    //     "flashSS",
-    //     "html5FairPlayHLS",
-    //     "silverlightSS",
-    //     "html5",
-    //   ],
-    //   autoplay: true,
-    //   controls: true,
-    //   poster: "",
-    // });
-
-    let url = this.currentPodcast.podcast.contentMedias[
-      this.currentPodcast.podcast.contentMedias.findIndex(
-        (x) => x.title === "mp3"
-      )
-    ].url;
-
-    this.player.src([
-      {
-        src: url,
-        type: this.getContentType(url),
-      },
-    ]);
-
-    //this.largePlayer = true;
-
-    this.player.ready(() => {
-      this.player.addEventListener(amp.eventName.play, () => {
-        this.player.currentTime(timeToSeek);
-      });
-    });
-  }
+  public hideVideoPlayer = () => {
+    if (this.player.isFullscreen()) {
+      this.player.exitFullscreen();
+      this.store.dispatch({ type: SHOW_VIDEO, payload: { value: false } });
+    }
+  };
 
   getContentType = (url) => {
     let type = url.split(/[#?]/)[0].split(".").pop().trim();

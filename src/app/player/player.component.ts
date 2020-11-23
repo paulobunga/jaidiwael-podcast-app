@@ -81,8 +81,7 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
       if (value) {
         this.state = value.media;
         this.podcasts = value.podcasts;
-        this.showVideo = value.showVideo;
-        console.log(this.showVideo);
+
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
           this.displayFooter = "active";
@@ -203,7 +202,7 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   }
 
   navigate() {
-    if (!this.showVideo) {
+    if (!this.isLarge) {
       this.navCtrl.navigateForward("podcast-player");
     } else {
       this.audioService.showVideoPlayer();
@@ -211,13 +210,16 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // changes.prop contains the old and the new value...
-    console.log(changes.isLarge);
+    let change = changes["isLarge"];
+    if (change.currentValue == true) {
+      this.showVideo == true;
+    } else {
+      this.showVideo == false;
+    }
   }
 
   canShowPlayer() {
     if (this.showVideo) {
-      console.log("You can show player");
       return "show-player";
     } else {
       return "hide-player";
