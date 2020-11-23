@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Player</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="padding: 40px">
+  <ion-grid fixed>
+    <ion-row *ngIf="currentPodcast" style="display: flex; justify-content: center; align-items: center">
+      <ion-col size="12" style="display: flex; justify-content: center; align-items: center">
+        <img style="border-radius: 10px" width="200px" height="100%" src="{{getThumbnail()}}" alt="Thumbnail" />
+      </ion-col>
+      <ion-col size="12">
+        <p style="text-align: center; font-weight: bold">
+          {{currentPodcast.podcast.title}}
+        </p>
+      </ion-col>
+      <!-- <ion-col size="12">
+        <p
+          style="font-size: 12px; color: rgba(0, 0, 0, 0.7); text-align: left"
+          [innerHtml]="truncate(currentPodcast.podcast.description, 200)"
+        ></p>
+      </ion-col> -->
+      <ion-col size="12">
+        <ion-range (ionFocus)="onSeekStart()" [formControl]="seekbar" min="0" (ionBlur)="onSeekEnd($event)"
+          [max]="state.durationSec" color="primary" name="seekbar">
+          <ion-label slot="start">{{ state.time }}</ion-label>
+          <ion-label slot="end">{{ state.duration}}</ion-label>
+        </ion-range>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <!-- <button ion-col ion-button (click)="play()">
+          <ion-icon color="light" name="play"></ion-icon>
+        </button>
+        <button ion-col ion-button (click)="play()">
+          <ion-icon color="light" name="play"></ion-icon>
+        </button> -->
+        <ion-button size="small" *ngIf="!state.playing" shape="round" color="primary" (click)="play()">
+          <ion-icon slot="icon-only" size="small" color="light" name="play"></ion-icon>
+        </ion-button>
+        <ion-button size="small" *ngIf="!!state.playing" shape="round" color="danger" (click)="pause()">
+          <ion-icon slot="icon-only" size="small" color="light" name="pause"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-player [isLarge]="true"></app-player>
+</ion-content>

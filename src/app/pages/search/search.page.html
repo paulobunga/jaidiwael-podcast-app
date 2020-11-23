@@ -1,0 +1,10 @@
+<ion-content>
+  <app-shared-header [bgHeader]="bgHeader"></app-shared-header>
+
+  <ion-row class="ion-padding">
+    <div class="txt-title clr-blue">Recherche </div>
+    <ion-searchbar class="ion-no-padding" color="light" mode="ios" placeholder="Tapez pour trouver un podcast"
+      (ionInput)="filterList($event)" (ionCancel)="close()"></ion-searchbar>
+  </ion-row>
+
+</ion-content>

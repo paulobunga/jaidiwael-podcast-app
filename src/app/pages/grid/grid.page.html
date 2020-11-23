@@ -1,0 +1,37 @@
+<app-shared-header [bgHeader]="bgHeader" [hiddenBackButton]="true"></app-shared-header>
+
+<ion-content class="ion-padding">
+
+  <ng-container *ngFor="let event of listEventsAfterOrdering">
+
+    <ion-list *ngIf="event.elements.length>0" class="ion-no-padding">
+      <ion-list-header class="clr-blue">{{event.date  | date : "MMMM"}} {{event.date | date : "yyyy"}}</ion-list-header>
+      <ion-item lines="none" *ngFor=" let item of event.elements ; let i = index "
+        [ngClass]="{'is-active': item.isActive}" class="ion-no-padding " >
+
+
+        <ion-grid>
+          <ion-row class="ion-align-items-center">
+            <ion-col size="3"> <img [src]="item.thumbnail"></ion-col>
+            <ion-col size="5">
+              <div>
+                <div class="clr-blue txt-small">{{item.publishingDate | date: "dd  MMMM  yyyy" }} </div>
+                <div class="clr-blue txt-desc">{{item.title}} </div>
+                <div class=" txt-small">{{item.emission.title}} </div>
+              </div>
+            </ion-col>
+            <ion-col size="3" class="ion-text-right">
+              <div class="ion-text-right clr-black">
+                <ion-icon  [class.show]="wasClicked" name="share"></ion-icon>
+                <ion-icon  [class.show]="wasClicked" name="calendar"></ion-icon>
+                <ion-icon (click)="onClick(i)" name="ellipsis-vertical-outline"></ion-icon>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+  </ng-container>
+
+</ion-content>

@@ -1,0 +1,13 @@
+<app-shared-header [bgHeader]="bgEmissionCategoriesUrl"></app-shared-header>
+<ion-content class="ion-padding">
+  <div class="txt-title clr-blue">Les podcasts</div>
+  <ion-grid class="ion-no-padding">
+    <ion-row *ngIf="podcasts">
+      <ion-col class="ion-padding-5" size="6" *ngFor="let podcast of podcasts; let i = index">
+        <app-shared-podcast [podcast]="podcast" [state]="state" [currentPodcast]="currentPodcast"
+          (selectPodcast)="openPodcast($event, i)"></app-shared-podcast>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<app-player [isLarge]="false"></app-player>

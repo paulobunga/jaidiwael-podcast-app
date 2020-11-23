@@ -1,0 +1,79 @@
+/* Slider */
+.container_slide {
+  position: relative;
+  ion-slides {
+    background-image: url(../../../assets/imgs/bg_podcastAcceuil.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 45vh;
+    color: var(--ion-color-white);
+    --bullet-background: var(--ion-color-white);
+    --bullet-background-active: #6078d2 !important;
+    opacity: 1 !important;
+    .headlines-podcast {
+      text-align: left;
+      width: 55%;
+      position: absolute;
+      padding-top: 85px;
+      left: 15px;
+      height: 100%;
+      font-family: "YanoneKaffeesatz-Regular" !important;
+      h4 {
+        width: 80px;
+        background: var(--ion-color-white);
+        border-radius: 5px;
+        text-align: center;
+        margin: 0;
+        font-size: 20px;
+      }
+      .headline-desc {
+        .headline-title {
+          font-size: 19px;
+          margin: 12px 0;
+        }
+        .headline-sub-title {
+          font-size: 13px;
+          margin: 0;
+        }
+      }
+      .btn-play {
+        width: 39px;
+        height: 39px;
+        position: absolute;
+        bottom: 20px;
+        z-index: 99999;
+        img {
+          border-radius: 50%;
+        }
+      }
+    }
+    .swiper-pagination {
+      bottom: 30px !important;
+      .swiper-pagination-bullet {
+        background: var(--ion-color-white);
+        opacity: 1;
+      }
+      .swiper-pagination-bullet-active {
+        opacity: 1;
+        background: var(--ion-color-primary);
+      }
+    }
+  }
+}
+
+.container_emissions {
+  white-space: nowrap;
+  height: 100px;
+  .scroll-content {
+    overflow-x: auto;
+    img {
+      display: inline-block;
+      width: 150px;
+      margin-right: 8px;
+      border-radius: 10px !important;
+      -moz-border-radius: 8px;
+      -webkit-box-shadow: 5px 2px 20px #000 inset;
+      box-shadow: 4px 4px 5px #bcbcbc !important;
+    }
+  }
+}
