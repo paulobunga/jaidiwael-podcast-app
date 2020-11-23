@@ -133,10 +133,10 @@ export class AudioService {
         ]);
       }
 
-      if (type == "video/mp4") {
-        this.player.enterFullscreen();
-        this.store.dispatch({ type: SHOW_VIDEO, payload: { value: true } });
-      }
+      // if (type == "video/mp4") {
+      //   this.player.enterFullscreen();
+      //   this.store.dispatch({ type: SHOW_VIDEO, payload: { value: true } });
+      // }
       //this.player.load();
       this.player.play();
 

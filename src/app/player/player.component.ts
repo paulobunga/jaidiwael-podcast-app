@@ -202,21 +202,21 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   }
 
   navigate() {
-    if (!this.isLarge) {
+    let url = this.currentPodcast.podcast.contentMedias[
+      this.currentPodcast.podcast.contentMedias.findIndex(
+        (x) => x.title === "mp3"
+      )
+    ].url;
+    let type = url.split(/[#?]/)[0].split(".").pop().trim();
+    if (type == "mp3") {
       this.navCtrl.navigateForward("podcast-player");
     } else {
+      console.log("this is video");
       this.audioService.showVideoPlayer();
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    let change = changes["isLarge"];
-    if (change.currentValue == true) {
-      this.showVideo == true;
-    } else {
-      this.showVideo == false;
-    }
-  }
+  ngOnChanges(changes: SimpleChanges) {}
 
   canShowPlayer() {
     if (this.showVideo) {
