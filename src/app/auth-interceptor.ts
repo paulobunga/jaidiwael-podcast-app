@@ -6,11 +6,10 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { PodcastService } from "./podcast.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private podcastService: PodcastService) {}
+  constructor() {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler

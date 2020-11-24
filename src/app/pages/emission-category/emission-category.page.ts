@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { RadioService } from 'src/app/services/radio.service';
-import { AudioService } from 'src/app/services/audio.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
-<<<<<<< HEAD:src/app/tab3/tab3.page.ts
-import { GET_PODCASTS, RESET, SET_CURRENT_TRACK } from "src/store";
-import { AudioService } from "./../audio.service";
-import { PodcastService } from "./../podcast.service";
-=======
+import { AudioService } from "src/app/services/audio.service";
+import { RadioService } from "src/app/services/radio.service";
 import {
   CANPLAYTHROUGH,
-  GET_PODCASTS,
   LOADEDMETADATA,
   LOADSTART,
   PLAYING,
@@ -20,14 +14,12 @@ import {
   TIMEUPDATE,
 } from "src/store";
 
->>>>>>> 28e3da11fd81adfb4c7caa89d46a04eaed73afe2:src/app/pages/emission-category/emission-category.page.ts
 @Component({
-  selector: 'app-emission-category',
-  templateUrl: './emission-category.page.html',
-  styleUrls: ['./emission-category.page.scss'],
+  selector: "app-emission-category",
+  templateUrl: "./emission-category.page.html",
+  styleUrls: ["./emission-category.page.scss"],
 })
 export class EmissionCategoryPage implements OnInit {
-
   bgEmissionCategoriesUrl: string;
 
   podcasts: any[] = [];
@@ -38,10 +30,10 @@ export class EmissionCategoryPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private audioService: AudioService,
     private radioService: RadioService,
-    private store: Store<any>) { }
+    private store: Store<any>
+  ) {}
 
   ngOnInit() {
-
     this.store.select("appState").subscribe((value) => {
       if (value) {
         this.state = value.media;
@@ -53,37 +45,43 @@ export class EmissionCategoryPage implements OnInit {
       console.log("EmissionCategoryPage#value", value);
     });
 
-    this.getEmissionCategories(this.activatedRoute.snapshot.params['emissionId']);
-    this.getEmissionsCategory(this.activatedRoute.snapshot.params['emissionId']);
+    this.getEmissionCategories(
+      this.activatedRoute.snapshot.params["emissionId"]
+    );
+    this.getEmissionsCategory(
+      this.activatedRoute.snapshot.params["emissionId"]
+    );
   }
 
   getEmissionCategories(emissionId: number) {
     const emissionCategories = this.radioService.getEmissionCategories();
-    this.bgEmissionCategoriesUrl = emissionCategories.find((x: any) => x.emissionId == emissionId).imgBanner;
-    console.log('this.bgEmissionCategoriesUrl', this.bgEmissionCategoriesUrl)
+    this.bgEmissionCategoriesUrl = emissionCategories.find(
+      (x: any) => x.emissionId == emissionId
+    ).imgBanner;
+    console.log("this.bgEmissionCategoriesUrl", this.bgEmissionCategoriesUrl);
   }
 
   getEmissionsCategory(emissionId: number) {
     const filterBy = {
       notreSelection: false,
       alaUne: false,
-      idEmission: emissionId
-    }
-    console.log('emissionId', emissionId);
-    this.radioService.getPodcasts(filterBy)
-      .subscribe((res: any) => {
-        console.log('getEmissionsCategory#res', res);
+      idEmission: emissionId,
+    };
+    console.log("emissionId", emissionId);
+    this.radioService.getPodcasts(filterBy).subscribe(
+      (res: any) => {
+        console.log("getEmissionsCategory#res", res);
         this.podcasts = res;
-      }, (error: any) => {
-        console.log('getEmissionsCategory#error', error);
+      },
+      (error: any) => {
+        console.log("getEmissionsCategory#error", error);
         if (error.status == 401) {
-          this.radioService.getToken()
-            .subscribe(_ => {
-              this.getEmissionsCategory(emissionId);
-            });
+          this.radioService.getToken().subscribe((_) => {
+            this.getEmissionsCategory(emissionId);
+          });
         }
-      });
-
+      }
+    );
   }
 
   getAudio(podcast) {
@@ -109,7 +107,7 @@ export class EmissionCategoryPage implements OnInit {
   }
 
   openPodcast(podcast, index) {
-    console.log('podcast', podcast);
+    console.log("podcast", podcast);
     if (this.currentPodcast.podcast === podcast) {
       if (this.state.playing) {
         this.audioService.pause();
@@ -136,19 +134,6 @@ export class EmissionCategoryPage implements OnInit {
     this.store.dispatch({ type: RESET });
   }
 
-<<<<<<< HEAD:src/app/tab3/tab3.page.ts
-  async getPodcasts() {
-    let loader = await this.presentLoader();
-    this.podcastService.getPodcasts().subscribe((podcasts) => {
-      //this.podcasts = podcasts;
-      this.store.dispatch({
-        type: GET_PODCASTS,
-        payload: { value: podcasts },
-      });
-      loader.dismiss();
-    });
-  }
-=======
   playStream(url) {
     this.resetState();
     this.audioService.playStream(url).subscribe((event) => {
@@ -206,7 +191,6 @@ export class EmissionCategoryPage implements OnInit {
             type: LOADSTART,
             payload: { value: true },
           });
->>>>>>> 28e3da11fd81adfb4c7caa89d46a04eaed73afe2:src/app/pages/emission-category/emission-category.page.ts
 
         case "start":
           return this.store.dispatch({

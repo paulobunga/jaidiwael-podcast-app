@@ -19,8 +19,8 @@ import { Router } from "@angular/router";
 import { IonContent, LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import { distinctUntilChanged, filter, map, pluck } from "rxjs/Operators";
+import { AudioService } from "src/app/services/audio.service";
 import { RESET } from "src/store";
-import { AudioService } from 'src/app/services/audio.service';
 
 @Component({
   selector: "app-player",
@@ -47,7 +47,6 @@ import { AudioService } from 'src/app/services/audio.service';
   ],
 })
 export class PlayerComponent implements AfterViewInit, OnChanges {
-
   @ViewChild("audio", { read: ElementRef }) audioPlayer: ElementRef;
   public currentPodcast: any = {};
   public podcasts: any[];
@@ -67,8 +66,8 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
     public audioService: AudioService,
     private store: Store<any>,
     public loadingCtrl: LoadingController,
-    public router: Router,
-  ) { }
+    public router: Router
+  ) {}
 
   ngAfterViewInit(): void {
     let playerElem = this.audioPlayer.nativeElement;
@@ -207,19 +206,14 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
     ].url;
     let type = url.split(/[#?]/)[0].split(".").pop().trim();
     if (type == "mp3") {
-<<<<<<< HEAD:src/app/player/player.component.ts
-      this.audioService.hideVideoPlayer();
-      this.navCtrl.navigateForward("podcast-player");
-=======
       this.router.navigate([`/big-player`]);
->>>>>>> 28e3da11fd81adfb4c7caa89d46a04eaed73afe2:src/app/pages/player/player.component.ts
     } else {
       console.log("this is video");
       this.audioService.showVideoPlayer();
     }
   }
 
-  ngOnChanges(changes: SimpleChanges) { }
+  ngOnChanges(changes: SimpleChanges) {}
 
   canShowPlayer() {
     if (this.showVideo) {

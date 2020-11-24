@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
 import { LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
-import { GET_PODCASTS, RESET, SET_CURRENT_TRACK } from "src/store";
-import { AudioService } from "./../audio.service";
-import { PodcastService } from "./../podcast.service";
+import { RESET, SET_CURRENT_TRACK } from "src/store";
+import { AudioService } from "../services/audio.service";
 @Component({
   selector: "app-tab1",
   templateUrl: "tab1.page.html",
@@ -15,7 +14,6 @@ export class Tab1Page {
   state: any = {};
 
   constructor(
-    private podcastService: PodcastService,
     private audioService: AudioService,
     private store: Store<any>,
     public loadingCtrl: LoadingController
@@ -91,14 +89,14 @@ export class Tab1Page {
 
   async getPodcasts() {
     let loader = await this.presentLoader();
-    this.podcastService.getPodcasts().subscribe((podcasts) => {
-      //this.podcasts = podcasts;
-      this.store.dispatch({
-        type: GET_PODCASTS,
-        payload: { value: podcasts },
-      });
-      loader.dismiss();
-    });
+    // this.podcastService.getPodcasts().subscribe((podcasts) => {
+    //   //this.podcasts = podcasts;
+    //   this.store.dispatch({
+    //     type: GET_PODCASTS,
+    //     payload: { value: podcasts },
+    //   });
+    //   loader.dismiss();
+    // });
   }
 
   async presentLoader() {
