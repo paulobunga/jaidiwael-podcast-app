@@ -28,8 +28,6 @@ export class PodcastPlayerPage {
         }
       }
     });
-
-    this.audioService.showVideoPlayer();
   }
 
   getThumbnail() {

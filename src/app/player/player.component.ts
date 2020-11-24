@@ -209,6 +209,7 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
     ].url;
     let type = url.split(/[#?]/)[0].split(".").pop().trim();
     if (type == "mp3") {
+      this.audioService.hideVideoPlayer();
       this.navCtrl.navigateForward("podcast-player");
     } else {
       console.log("this is video");
