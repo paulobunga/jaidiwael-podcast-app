@@ -1,0 +1,79 @@
+<ion-content class="ion-padding">
+
+  <div class="podcast-detail">
+    <div class="close-modal">
+      <a (click)="dismiss()">
+        <img class="arrow-down" src="../../assets/icon/arrow_down.png">
+      </a>
+    </div>
+
+    <ion-grid class="ion-no-margin ion-no-padding">
+      <ion-row>
+        <ion-col size="12">
+          <div class="podcast-img"><img src={{currentPodcast.contentMedias[1].url}}></div>
+          <a class="btn-play" routerLink="">
+            <img class="searchbuttonmaradio" src="../../../assets/icon/icon_play_new.png">
+          </a>
+        </ion-col>
+        <ion-col size="12">
+          <ion-card class="ion-no-margin">
+            <ion-card-content class="padding-all-10">
+              <ion-row class="ion-align-items-center">
+                <ion-col size="8">
+                  <div class="txt-desc font-gotham font-bold"> {{currentPodcast.emission.title}}</div>
+                  <div class="txt-small  font-light">
+                    {{currentPodcast.publishingDate | date: "dd  MMMM  yyyy" }}</div>
+                </ion-col>
+                <ion-col size="4">
+                  <div class="ion-text-right bx-share clr-black">
+                    <a (click)="download()"><img src="../../assets/icon/download_podcast.png"></a>
+                    <a (click)="share()"><img src="../../assets/icon/share_podcast.png"></a>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-margin-vertical">
+        <ion-col size="12">
+          <div class="txt-19 font-bold font-gotham clr-purple">{{currentPodcast.title}}</div>
+        </ion-col>
+        <ion-col size="12">
+          <div class="txt-big ">{{currentPodcast.sousTitle}}</div>
+        </ion-col>
+        <ion-col size="12">
+          <div class="txt-big font-gotham" [innerHTML]="currentPodcast.description"></div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col *ngIf="listExpertPerson.length>0">
+          <div class="txt-desc font-bold clr-blue">Expert</div>
+          <div *ngFor="let item of listExpertPerson">
+            <div class="txt-small">{{item.username}}</div>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="listInvitedPerson.length>0">
+          <div class="txt-desc font-bold clr-blue">Invité</div>
+          <div *ngFor="let item of listInvitedPerson">
+            <div class="txt-small">{{item.username}}</div>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="currentPodcast.contentMedias.length>0">
+        <ion-col size="12" class="txt-desc font-bold clr-blue">Pour aller plus loin</ion-col>
+        <ion-col size="12" *ngFor="let element of currentPodcast.contentMedias; let i = index">
+          <a class="txt-small">{{ element.description }}</a>
+        </ion-col>
+      </ion-row>
+
+
+
+    </ion-grid>
+
+
+  </div>
+</ion-content>

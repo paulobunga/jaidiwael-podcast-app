@@ -1,0 +1,62 @@
+<app-shared-header [hiddenBackButton]="true"></app-shared-header>
+<div class="container_slide">
+  <ion-slides *ngIf="!bgHeader" pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let podcast of headlinesPodcasts ; let i = index" (click)="openPodcast(podcast, i)">
+      <div class="headlines-podcast">
+        <h4 [ngStyle]="{color: headlinesPodcasts[i]?.emission.codeCouleur}" class="ion-no-margin"> A la Une </h4>
+        <div class="headline-desc">
+          <div class="headline-title">{{podcast.title}} </div>
+          <div class="headline-sub-title">{{podcast.sousTitle}}</div>
+        </div>
+        <!--  <a class="btn-play ion-margin-top" routerLink="">
+          <img [ngStyle]="{background: headlinesPodcasts[i]?.emission.codeCouleur }"
+            src="../../../assets/icon/btplay_podcast.png">
+        </a> -->
+        <div style="position: absolute; bottom: 5px; left: 5px; ">
+          <ng-container *ngIf="state && !!state.playing">
+            <ion-icon size="large" *ngIf="currentPodcast.podcast === podcast" color="dark" name="pause-circle-outline">
+            </ion-icon>
+          </ng-container>
+          <ng-container *ngIf="state && !state.playing">
+            <ion-icon size="large" color="light" name="play-circle-outline" *ngIf="currentPodcast.podcast === podcast">
+            </ion-icon>
+          </ng-container>
+          <ion-icon size="large" *ngIf="currentPodcast.podcast !== podcast" color="dark" name="play-circle-outline">
+          </ion-icon>
+        </div>
+
+      </div>
+    </ion-slide>
+  </ion-slides>
+</div>
+
+<ion-content class="ion-padding">
+
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+      <div class="txt-title clr-blue ion-padding-vertical"><b>Emissions</b></div>
+      <ion-col size="12">
+        <ion-scroll scrollx="true" ng-reflect-scroll-x="true" class="container_emissions">
+          <div class="scroll-content">
+            <img *ngFor="let category of emissionCategories" [routerLink]="['/emission-category/', category.emissionId]"
+              src={{category.imgUrl}}>
+          </div>
+        </ion-scroll>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <div class="txt-title clr-blue ion-padding-vertical"><b>Notre sélection</b></div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="ion-no-padding">
+    <ion-row *ngIf="podcasts">
+      <ion-col class="ion-padding-5" size="6" *ngFor="let podcast of ourSelectionPodcasts; let i = index">
+        <app-shared-podcast [podcast]="podcast" [state]="state" [currentPodcast]="currentPodcast"
+          (selectPodcast)="openPodcast($event, i)"></app-shared-podcast>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<app-player [isLarge]="false"></app-player>

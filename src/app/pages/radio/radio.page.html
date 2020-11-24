@@ -1,0 +1,9 @@
+<ion-content>
+  <app-shared-header [hiddenBackButton]="true" [bgHeader]="bgHeader"></app-shared-header>
+
+  <ion-row class="ion-padding">
+    <div class="txt-title clr-blue">Ma Radio </div>
+    <ion-searchbar class="ion-no-padding"color="light" mode="ios" placeholder="Recherchez des podcasts dans Ma Radio"  (ionInput)="filterList($event)" (ionCancel)="close()" ></ion-searchbar>
+  </ion-row>
+
+</ion-content>
