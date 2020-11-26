@@ -22,6 +22,8 @@ export const START = "START";
 
 export const SHOW_VIDEO = "SHOW_VIDEO";
 
+export const TOGGLE_FULLSCREEN = "TOGGLE_FULLSCREEN";
+
 const INITIALSTATE = {
   media: {},
   podcasts: [],
@@ -98,6 +100,15 @@ export function mediaStateReducer(
         media: {
           ...state.media,
           playing: true,
+        },
+      };
+
+    case TOGGLE_FULLSCREEN:
+      return {
+        ...state,
+        media: {
+          ...state.media,
+          showFullscreen: payload.value,
         },
       };
 

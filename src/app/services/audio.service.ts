@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
+import { Store } from "@ngrx/store";
 import * as moment from "moment";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/Operators";
-import { Store } from "@ngrx/store";
 import {
   CANPLAYTHROUGH,
   LOADEDMETADATA,
@@ -11,6 +11,7 @@ import {
   SHOW_VIDEO,
   START,
   TIMEUPDATE,
+  TOGGLE_FULLSCREEN,
 } from "src/store";
 
 @Injectable({
@@ -59,7 +60,7 @@ export class AudioService {
       });
     }
 
-    this.player.ready(() => { });
+    this.player.ready(() => {});
   };
 
   public showVideoPlayer = () => {
@@ -206,6 +207,12 @@ export class AudioService {
                 mediaType: "mp3",
               },
             },
+          });
+
+        case "fullscreenchange":
+          return this.store.dispatch({
+            type: TOGGLE_FULLSCREEN,
+            payload: { value: !this.player.isFullscreen() },
           });
 
         case "playing":
