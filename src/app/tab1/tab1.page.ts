@@ -111,8 +111,4 @@ export class Tab1Page {
     await loading.present();
     return loading;
   }
-
-  ionViewDidLeave() {
-    this.audioService.hideVideoPlayer();
-  }
 }
