@@ -1,16 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { RadioService } from 'src/app/services/radio.service';
-import { AudioService } from 'src/app/services/audio.service';
+import { Component, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { AudioService } from "src/app/services/audio.service";
+import { RadioService } from "src/app/services/radio.service";
 import { GET_PODCASTS, RESET, SET_CURRENT_TRACK } from "src/store";
 @Component({
-  selector: 'app-podcasts',
-  templateUrl: './podcasts.page.html',
-  styleUrls: ['./podcasts.page.scss'],
+  selector: "app-podcasts",
+  templateUrl: "./podcasts.page.html",
+  styleUrls: ["./podcasts.page.scss"],
 })
-
 export class PodcastsPage implements OnInit {
-
   podcasts: any[] = [];
   currentPodcast: any = {};
   state: any = {};
@@ -25,16 +23,13 @@ export class PodcastsPage implements OnInit {
   ourSelectionPodcasts: any[] = [];
   emissionCategories: any[] = [];
 
-
   constructor(
     private audioService: AudioService,
     private radioService: RadioService,
-    private store: Store<any>) {
-
-  }
+    private store: Store<any>
+  ) {}
 
   ngOnInit() {
-
     this.store.select("appState").subscribe((value) => {
       if (value) {
         this.state = value.media;
@@ -49,27 +44,24 @@ export class PodcastsPage implements OnInit {
     this.getOurSelectionPodcast();
     this.getHeadlinesPodcasts();
     this.getEmissionCategories();
-
   }
 
   getHeadlinesPodcasts() {
-    const filterBy = { alaUne: true }
-    this.radioService.getPodcasts(filterBy)
-      .subscribe((res: any) => {
-        console.log('getHeadlinesPodcasts#res', res);
+    const filterBy = { alaUne: true };
+    this.radioService.getPodcasts(filterBy).subscribe(
+      (res: any) => {
+        console.log("getHeadlinesPodcasts#res", res);
         this.headlinesPodcasts = res.reverse();
-
-
-      }, (error: any) => {
-        console.log('getHeadlinesPodcasts#error', error);
+      },
+      (error: any) => {
+        console.log("getHeadlinesPodcasts#error", error);
         if (error.status == 401) {
-          this.radioService.getToken()
-            .subscribe(_ => {
-              this.getHeadlinesPodcasts();
-            });
+          this.radioService.getToken().subscribe((_) => {
+            this.getHeadlinesPodcasts();
+          });
         }
-      });
-
+      }
+    );
   }
 
   getEmissionCategories() {
@@ -81,25 +73,26 @@ export class PodcastsPage implements OnInit {
       notreSelection: true,
       alaUne: false,
       idEmission: 0,
-      type: null
-    }
-    this.radioService.getPodcasts(filterBy).subscribe((res: any) => {
-      console.log('getOurSelectionPodcast#res', res);
-      this.ourSelectionPodcasts = res;
-      this.store.dispatch({
-        type: GET_PODCASTS,
-        payload: { value: res.reverse() },
-      });
-
-    }, (error: any) => {
-      console.log('getOurSelectionPodcast#error', error);
-      if (error.status == 401) {
-        this.radioService.getToken()
-          .subscribe(_ => {
+      type: null,
+    };
+    this.radioService.getPodcasts(filterBy).subscribe(
+      (res: any) => {
+        console.log("getOurSelectionPodcast#res", res);
+        this.ourSelectionPodcasts = res;
+        this.store.dispatch({
+          type: GET_PODCASTS,
+          payload: { value: res.reverse() },
+        });
+      },
+      (error: any) => {
+        console.log("getOurSelectionPodcast#error", error);
+        if (error.status == 401) {
+          this.radioService.getToken().subscribe((_) => {
             this.getOurSelectionPodcast();
           });
+        }
       }
-    });
+    );
   }
 
   getAudio(podcast) {
@@ -109,34 +102,36 @@ export class PodcastsPage implements OnInit {
   }
 
   getColor(podcast) {
-    let color = podcast.podcast.emission.codeCouleur;
-    switch (color) {
-      case "#8a8a8a":
-        return "play-gray";
-      case "#5573da":
-        return "play-indigo";
-      case "#6a4a97":
-        return "play-pupple";
-      case "#ec4347":
-        return "play-red";
-      case "#1f00be":
-        return "play-blue";
+    if (podcast) {
+      let color = podcast.emission.codeCouleur;
+      switch (color) {
+        case "#8a8a8a":
+          return "play-gray";
+        case "#5573da":
+          return "play-indigo";
+        case "#6a4a97":
+          return "play-pupple";
+        case "#ec4347":
+          return "play-red";
+        case "#1f00be":
+          return "play-blue";
+      }
+    } else {
+      return "play-blue";
     }
   }
 
-  openPodcast(podcast, index) {
-    console.log('podcast', podcast);
-    if (this.currentPodcast.podcast === podcast) {
+  openPodcast(podcast) {
+    if (this.currentPodcast.id === podcast.id) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {
         this.audioService.play();
       }
     } else {
-      let currentPodcast = { index, podcast };
       this.store.dispatch({
         type: SET_CURRENT_TRACK,
-        payload: { value: currentPodcast },
+        payload: { value: podcast },
       });
 
       this.audioService.playPodcastStream(this.getAudio(podcast));
@@ -151,5 +146,4 @@ export class PodcastsPage implements OnInit {
     this.audioService.stop();
     this.store.dispatch({ type: RESET });
   }
-
 }

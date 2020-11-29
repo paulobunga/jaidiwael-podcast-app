@@ -91,31 +91,35 @@ export class EmissionCategoryPage implements OnInit {
   }
 
   getColor(podcast) {
-    let color = podcast.podcast.emission.codeCouleur;
-    switch (color) {
-      case "#8a8a8a":
-        return "play-gray";
-      case "#5573da":
-        return "play-indigo";
-      case "#6a4a97":
-        return "play-pupple";
-      case "#ec4347":
-        return "play-red";
-      case "#1f00be":
-        return "play-blue";
+    if (podcast) {
+      let color = podcast.emission.codeCouleur;
+      switch (color) {
+        case "#8a8a8a":
+          return "play-gray";
+        case "#5573da":
+          return "play-indigo";
+        case "#6a4a97":
+          return "play-pupple";
+        case "#ec4347":
+          return "play-red";
+        case "#1f00be":
+          return "play-blue";
+      }
+    } else {
+      return "play-blue";
     }
   }
 
-  openPodcast(podcast, index) {
+  openPodcast(podcast) {
     console.log("podcast", podcast);
-    if (this.currentPodcast.podcast === podcast) {
+    if (this.currentPodcast.id === podcast.id) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {
         this.audioService.play();
       }
     } else {
-      let currentPodcast = { index, podcast };
+      let currentPodcast = { ...podcast };
       this.store.dispatch({
         type: SET_CURRENT_TRACK,
         payload: { value: currentPodcast },
@@ -199,9 +203,5 @@ export class EmissionCategoryPage implements OnInit {
           });
       }
     });
-  }
-
-  ionViewDidLeave() {
-    this.audioService.hideVideoPlayer();
   }
 }

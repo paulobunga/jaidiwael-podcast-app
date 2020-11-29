@@ -1,26 +1,43 @@
 <ion-card class="podcast-card ion-no-margin">
   <ion-card-header class="ion-no-padding" (click)="sendSlectPodcast(podcast)">
-    <img src={{podcast.contentMedias[1].url}}>
+    <img src="{{ podcast.contentMedias[1].url }}" />
     <!-- <a class="btn-play" routerLink="">
       <img class="searchbuttonmaradio" src="../../../assets/icon/icon_play_new.png">
     </a> -->
     <ng-container *ngIf="state && !!state.playing">
-      <ion-icon size="large" *ngIf="currentPodcast.podcast === podcast"
-        style="position: absolute; bottom: 5px; right: 5px; " color="dark" name="pause-circle-outline">
+      <ion-icon
+        size="large"
+        *ngIf="currentPodcast.id === podcast.id"
+        style="position: absolute; bottom: 5px; right: 5px"
+        color="dark"
+        name="pause-circle-outline"
+      >
       </ion-icon>
     </ng-container>
 
     <ng-container *ngIf="state && !state.playing">
-      <ion-icon size="large" style="position: absolute; bottom: 5px; right: 5px;" color="light"
-        name="play-circle-outline" *ngIf="currentPodcast.podcast === podcast"></ion-icon>
+      <ion-icon
+        size="large"
+        style="position: absolute; bottom: 5px; right: 5px"
+        color="light"
+        name="play-circle-outline"
+        *ngIf="currentPodcast.id === podcast.id"
+      ></ion-icon>
     </ng-container>
 
-    <ion-icon size="large" *ngIf="currentPodcast.podcast !== podcast"
-      style="position: absolute; bottom: 5px; right: 5px;" color="dark" name="play-circle-outline">
+    <ion-icon
+      size="large"
+      *ngIf="currentPodcast.id !== podcast.id"
+      style="position: absolute; bottom: 5px; right: 5px"
+      color="dark"
+      name="play-circle-outline"
+    >
     </ion-icon>
   </ion-card-header>
   <ion-card-content (click)="showEmission(podcast)" class="padding-all-5">
-    <div class="podcast-date">{{podcast.publishingDate | date: "dd  MMMM  yyyy" }}</div>
-    <div class="podcast-title">{{podcast.title}}</div>
+    <div class="podcast-date">
+      {{ podcast.publishingDate | date: "dd  MMMM  yyyy" }}
+    </div>
+    <div class="podcast-title">{{ podcast.title }}</div>
   </ion-card-content>
 </ion-card>

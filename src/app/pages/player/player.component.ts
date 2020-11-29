@@ -5,12 +5,15 @@ import {
   transition,
   trigger,
 } from "@angular/animations";
+import { DOCUMENT } from "@angular/common";
 import {
   AfterViewInit,
   Component,
   ElementRef,
+  Inject,
   Input,
   OnChanges,
+  Renderer2,
   SimpleChanges,
   ViewChild,
 } from "@angular/core";
@@ -50,7 +53,6 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   @ViewChild("audio", { read: ElementRef }) audioPlayer: ElementRef;
   public currentPodcast: any = {};
   public podcasts: any[];
-  public showVideo: boolean = false;
 
   seekbar: FormControl = new FormControl("seekbar");
   state: any = {};
@@ -66,7 +68,9 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
     public audioService: AudioService,
     private store: Store<any>,
     public loadingCtrl: LoadingController,
-    public router: Router
+    public router: Router,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) document
   ) {}
 
   ngAfterViewInit(): void {
@@ -140,21 +144,14 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   }
 
   close() {
-    this.resetState();
+    this.audioService.stop();
+    this.store.dispatch({ type: RESET });
     this.displayFooter = "inactive";
   }
 
-  next() {
-    let index = this.currentPodcast.index + 1;
-    let podcast = this.podcasts[index];
-    //this.openPodcast(podcast, index);
-  }
+  next() {}
 
-  previous() {
-    let index = this.currentPodcast.index - 1;
-    let podcast = this.podcasts[index];
-    //this.openPodcast(podcast, index);
-  }
+  previous() {}
 
   isFirstPlaying() {
     return this.currentPodcast.index === 0;
@@ -181,8 +178,8 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   }
 
   getColor() {
-    if (this.currentPodcast) {
-      let color = this.currentPodcast.podcast.emission.codeCouleur;
+    if (this.currentPodcast && this.currentPodcast.emission) {
+      let color = this.currentPodcast.emission.codeCouleur;
       switch (color) {
         case "#8a8a8a":
           return "play-gray";
@@ -195,14 +192,14 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
         case "#1f00be":
           return "play-blue";
       }
+    } else {
+      return "play-blue";
     }
   }
 
   navigate() {
-    let url = this.currentPodcast.podcast.contentMedias[
-      this.currentPodcast.podcast.contentMedias.findIndex(
-        (x) => x.title === "mp3"
-      )
+    let url = this.currentPodcast.contentMedias[
+      this.currentPodcast.contentMedias.findIndex((x) => x.title === "mp3")
     ].url;
     let type = url.split(/[#?]/)[0].split(".").pop().trim();
     if (type == "mp3") {
@@ -214,12 +211,4 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {}
-
-  canShowPlayer() {
-    if (this.showVideo) {
-      return "show-player";
-    } else {
-      return "hide-player";
-    }
-  }
 }

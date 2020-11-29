@@ -8,7 +8,6 @@ import {
   LOADEDMETADATA,
   LOADSTART,
   PLAYING,
-  SHOW_VIDEO,
   START,
   TIMEUPDATE,
   TOGGLE_FULLSCREEN,
@@ -60,22 +59,17 @@ export class AudioService {
       });
     }
 
-    this.player.ready(() => {});
+    this.player.ready(() => {
+      this.player.playerElement().style.display = "none";
+    });
   };
 
-  public showVideoPlayer = () => {
+  showVideoPlayer() {
+    this.player.playerElement().style.display = "block";
     if (!this.player.isFullscreen()) {
       this.player.enterFullscreen();
-      this.store.dispatch({ type: SHOW_VIDEO, payload: { value: true } });
     }
-  };
-
-  public hideVideoPlayer = () => {
-    if (this.player.isFullscreen()) {
-      this.player.exitFullscreen();
-      this.store.dispatch({ type: SHOW_VIDEO, payload: { value: false } });
-    }
-  };
+  }
 
   getContentType = (url) => {
     let type = url.split(/[#?]/)[0].split(".").pop().trim();
@@ -117,15 +111,14 @@ export class AudioService {
     return Observable.create((observer) => {
       // Play audio
 
-      let url = this.currentPodcast.podcast.contentMedias[
-        this.currentPodcast.podcast.contentMedias.findIndex(
-          (x) => x.title === "mp3"
-        )
+      let url = this.currentPodcast.contentMedias[
+        this.currentPodcast.contentMedias.findIndex((x) => x.title === "mp3")
       ].url;
 
       let type = this.getContentType(url);
 
       if (this.player) {
+        this.player;
         this.player.src([
           {
             src: url,
@@ -134,11 +127,6 @@ export class AudioService {
         ]);
       }
 
-      // if (type == "video/mp4") {
-      //   this.player.enterFullscreen();
-      //   this.store.dispatch({ type: SHOW_VIDEO, payload: { value: true } });
-      // }
-      //this.player.load();
       this.player.play();
 
       // Media Events
@@ -170,6 +158,7 @@ export class AudioService {
 
   stop() {
     this.stop$.next();
+    this.player.playerElement().style.display = "none";
   }
 
   seekTo(seconds) {

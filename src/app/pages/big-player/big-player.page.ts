@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { AudioService } from 'src/app/services/audio.service';
+import { AudioService } from "src/app/services/audio.service";
 
 @Component({
-  selector: 'app-big-player',
-  templateUrl: './big-player.page.html',
-  styleUrls: ['./big-player.page.scss'],
+  selector: "app-big-player",
+  templateUrl: "./big-player.page.html",
+  styleUrls: ["./big-player.page.scss"],
 })
 export class BigPlayerPage {
   public currentPodcast: any = null;
@@ -16,7 +16,7 @@ export class BigPlayerPage {
   onSeekState: boolean;
   player: amp.Player;
 
-  constructor(private store: Store<any>, private audioService: AudioService) { }
+  constructor(private store: Store<any>, private audioService: AudioService) {}
 
   ionViewWillEnter(): void {
     this.store.select("appState").subscribe((value) => {
@@ -28,13 +28,11 @@ export class BigPlayerPage {
         }
       }
     });
-
-    this.audioService.showVideoPlayer();
   }
 
   getThumbnail() {
-    return this.currentPodcast.podcast.contentMedias[
-      this.currentPodcast.podcast.contentMedias.findIndex(
+    return this.currentPodcast.contentMedias[
+      this.currentPodcast.contentMedias.findIndex(
         (x) => x.title === "thumbnail"
       )
     ].url;

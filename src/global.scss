@@ -28,376 +28,376 @@
 /****FontFamily****/
 
 @font-face {
-    font-family: "Kefa", sans-serif;
-    font-style: normal;
-    font-weight: medium;
-    src: url("./assets/fonts/Kefa.ttc");
+  font-family: "Kefa", sans-serif;
+  font-style: normal;
+  font-weight: medium;
+  src: url("./assets/fonts/Kefa.ttc");
 }
 
 @font-face {
-    font-family: "Montserrat", sans-serif;
-    src: url("./assets/fonts/Montserrat-Regular.ttf");
+  font-family: "Montserrat", sans-serif;
+  src: url("./assets/fonts/Montserrat-Regular.ttf");
 }
 
 @font-face {
-    font-family: "YanoneKaffeesatz-Light";
-    src: url("./assets/fonts/YanoneKaffeesatz-Light.ttf");
-    font-weight: 300;
+  font-family: "YanoneKaffeesatz-Light";
+  src: url("./assets/fonts/YanoneKaffeesatz-Light.ttf");
+  font-weight: 300;
 }
 
 @font-face {
-    font-family: "YanoneKaffeesatz-Regular";
-    src: url("./assets/fonts/YanoneKaffeesatz-Regular.ttf");
-    font-weight: 400;
+  font-family: "YanoneKaffeesatz-Regular";
+  src: url("./assets/fonts/YanoneKaffeesatz-Regular.ttf");
+  font-weight: 400;
 }
 
 @font-face {
-    font-family: "Gotham";
-    src: url("./assets/fonts/gotham_ssv/Gotham-Medium.otf");
-    font-weight: 400;
+  font-family: "Gotham";
+  src: url("./assets/fonts/gotham_ssv/Gotham-Medium.otf");
+  font-weight: 400;
 }
 
 @font-face {
-    font-family: "Montserrat-Regular";
-    src: url("./assets/fonts/Montserrat-Regular.ttf");
-    font-weight: 400;
+  font-family: "Montserrat-Regular";
+  src: url("./assets/fonts/Montserrat-Regular.ttf");
+  font-weight: 400;
 }
 
 * {
-    font-family: "YanoneKaffeesatz-Regular" !important;
+  font-family: "YanoneKaffeesatz-Regular" !important;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 ion-back-button {
-    color: var(--ion-color-white);
+  color: var(--ion-color-white);
 }
 
 .ion-padding-5 {
-    padding: 5px !important;
+  padding: 5px !important;
 }
 /* Header */
 
 .banner-header {
-    position: absolute;
-    width: 97%;
-    top: 12px;
-    left: 0;
-    right: 0;
-    margin: auto;
-    z-index: 999;
+  position: absolute;
+  width: 97%;
+  top: 12px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 999;
 
+  img {
+    height: 25px;
+  }
+  .icon-search {
     img {
-        height: 25px;
+      height: 21px;
+      margin: 2px 8px;
     }
-    .icon-search {
-        img {
-            height: 21px;
-            margin: 2px 8px;
-        }
-    }
-    ion-back-button {
-        padding-bottom: 22px;
-    }
+  }
+  ion-back-button {
+    padding-bottom: 22px;
+  }
 }
 
 /*podcast-card*/
 
 .podcast-card {
-    margin: 0;
+  margin: 0;
 
-    ion-card-header {
-        img {
-            &:first-child {
-                border-radius: 7px 7px 0 0;
-                height: 125px;
-            }
-        }
-        .btn-play {
-            position: absolute;
-            right: 5px;
-            bottom: 5px;
-            img {
-                height: 40px;
-            }
-        }
+  ion-card-header {
+    img {
+      &:first-child {
+        border-radius: 7px 7px 0 0;
+        height: 125px;
+      }
+    }
+    .btn-play {
+      position: absolute;
+      right: 5px;
+      bottom: 5px;
+      img {
+        height: 40px;
+      }
+    }
+  }
+
+  ion-card-content {
+    display: inline-block;
+    position: relative;
+    min-height: 70px;
+
+    .podcast-date {
+      color: var(--ion-color-primary);
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      font-family: "YanoneKaffeesatz-Light";
     }
 
-    ion-card-content {
-        display: inline-block;
-        position: relative;
-        min-height: 70px;
-
-        .podcast-date {
-            color: var(--ion-color-primary);
-            font-size: 12px;
-            letter-spacing: 0.5px;
-            font-family: "YanoneKaffeesatz-Light";
-        }
-
-        .podcast-title {
-            font-size: 12px;
-            font-family: "Montserrat-Regular";
-            letter-spacing: 0.5px;
-        }
+    .podcast-title {
+      font-size: 12px;
+      font-family: "Montserrat-Regular";
+      letter-spacing: 0.5px;
     }
+  }
 }
 
 /* Podcast Detail Model*/
 
 .podcast-detail {
-    font-family: "Gotham" !important;
+  font-family: "Gotham" !important;
 
-    .close-modal {
-        margin: 0 auto;
+  .close-modal {
+    margin: 0 auto;
+    width: 20px;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+
+  .podcast-img {
+    margin-top: 10px;
+
+    img {
+      -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
+      border-radius: 5px;
+    }
+  }
+
+  .btn-play {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+
+    img {
+      height: 60px;
+    }
+  }
+
+  .bx-share {
+    a {
+      margin: 0 10px;
+
+      img {
         width: 20px;
-        position: absolute;
-        top: 5px;
-        left: 0;
-        right: 0;
-        z-index: 999;
+        height: 20px;
+      }
     }
+  }
 
-    .podcast-img {
-        margin-top: 10px;
+  ion-card {
+    color: var(--ion-color-primary);
 
-        img {
-            -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
-            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
-            border-radius: 5px;
+    ion-card-content {
+      -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
+      box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
+      border-radius: 5px;
+      background-color: #80808029;
+
+      ion-icon {
+        font-size: 20px;
+
+        &:nth-child(1),
+        &:nth-child(2) {
+          opacity: 0;
+          pointer-events: none;
         }
+      }
+
+      .show {
+        opacity: 1 !important;
+        pointer-events: visible !important;
+      }
     }
+  }
 
-    .btn-play {
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
-
-        img {
-            height: 60px;
-        }
-    }
-
-    .bx-share {
-        a {
-            margin: 0 10px;
-
-            img {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    }
-
-    ion-card {
-        color: var(--ion-color-primary);
-
-        ion-card-content {
-            -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
-            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.26);
-            border-radius: 5px;
-            background-color: #80808029;
-
-            ion-icon {
-                font-size: 20px;
-
-                &:nth-child(1),
-                &:nth-child(2) {
-                    opacity: 0;
-                    pointer-events: none;
-                }
-            }
-
-            .show {
-                opacity: 1 !important;
-                pointer-events: visible !important;
-            }
-        }
-    }
-
-    .bx-scroll {
-        height: 100px;
-        font-size: 13px;
-        white-space: pre-line;
-        height: 100px;
-        overflow-y: auto;
-    }
+  .bx-scroll {
+    height: 100px;
+    font-size: 13px;
+    white-space: pre-line;
+    height: 100px;
+    overflow-y: auto;
+  }
 }
 
 //****************************//
 //******** Margin ***********//
 //***************************//
 .margin-top-0 {
-    margin-top: 0px !important;
+  margin-top: 0px !important;
 }
 
 .margin-top-3 {
-    margin-top: 3px !important;
+  margin-top: 3px !important;
 }
 
 .margin-top-5 {
-    margin-top: 5px !important;
+  margin-top: 5px !important;
 }
 
 .margin-top-10 {
-    margin-top: 10px !important;
+  margin-top: 10px !important;
 }
 
 .margin-top-15 {
-    margin-top: 15px !important;
+  margin-top: 15px !important;
 }
 
 .margin-top-25 {
-    margin-top: 25px !important;
+  margin-top: 25px !important;
 }
 
 .margin-bottom-0 {
-    margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .margin-bottom-3 {
-    margin-bottom: 3px !important;
+  margin-bottom: 3px !important;
 }
 
 .margin-bottom-5 {
-    margin-bottom: 5px !important;
+  margin-bottom: 5px !important;
 }
 
 .margin-bottom-10 {
-    margin-bottom: 10px !important;
+  margin-bottom: 10px !important;
 }
 
 .margin-bottom-15 {
-    margin-bottom: 15px !important;
+  margin-bottom: 15px !important;
 }
 
 .margin-bottom-20 {
-    margin-bottom: 20px !important;
+  margin-bottom: 20px !important;
 }
 
 .margin-all-5 {
-    margin: 5px !important;
+  margin: 5px !important;
 }
 
 .margin-all-10 {
-    margin: 10px !important;
+  margin: 10px !important;
 }
 
 .margin-all-15 {
-    margin: 15px !important;
+  margin: 15px !important;
 }
 
 .margin-right-0 {
-    margin-right: 0px !important;
+  margin-right: 0px !important;
 }
 
 .margin-right-5 {
-    margin-right: 5px !important;
+  margin-right: 5px !important;
 }
 
 .margin-right-8 {
-    margin-right: 8px !important;
+  margin-right: 8px !important;
 }
 
 .margin-right-10 {
-    margin-right: 10px !important;
+  margin-right: 10px !important;
 }
 
 .margin-right-15 {
-    margin-right: 15px !important;
+  margin-right: 15px !important;
 }
 
 .margin-left-0 {
-    margin-left: 0px !important;
+  margin-left: 0px !important;
 }
 
 .margin-left-5 {
-    margin-left: 5px !important;
+  margin-left: 5px !important;
 }
 
 .margin-left-8 {
-    margin-left: 8px !important;
+  margin-left: 8px !important;
 }
 
 //****************************//
 //******** Padding ***********//
 //***************************//
 .padding-top-0 {
-    padding-top: 0px !important;
+  padding-top: 0px !important;
 }
 
 .padding-top-3 {
-    padding-top: 3px !important;
+  padding-top: 3px !important;
 }
 
 .padding-top-5 {
-    padding-top: 5px !important;
+  padding-top: 5px !important;
 }
 
 .padding-top-10 {
-    padding-top: 10px !important;
+  padding-top: 10px !important;
 }
 
 .padding-bottom-0 {
-    padding-bottom: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 .padding-bottom-3 {
-    padding-bottom: 3px !important;
+  padding-bottom: 3px !important;
 }
 
 .padding-bottom-5 {
-    padding-bottom: 5px !important;
+  padding-bottom: 5px !important;
 }
 
 .padding-bottom-10 {
-    padding-bottom: 10px !important;
+  padding-bottom: 10px !important;
 }
 
 .padding-right-5 {
-    padding-right: 5px !important;
+  padding-right: 5px !important;
 }
 
 .padding-right-15 {
-    padding-right: 15px !important;
+  padding-right: 15px !important;
 }
 
 .padding-right-25 {
-    padding-right: 25px !important;
+  padding-right: 25px !important;
 }
 
 .padding-left-0 {
-    padding-left: 0px !important;
+  padding-left: 0px !important;
 }
 
 .padding-left-5 {
-    padding-left: 5px !important;
+  padding-left: 5px !important;
 }
 
 .padding-left-10 {
-    padding-left: 10px !important;
+  padding-left: 10px !important;
 }
 
 .padding-left-15 {
-    padding-left: 15px !important;
+  padding-left: 15px !important;
 }
 
 .padding-left-25 {
-    padding-left: 25px !important;
+  padding-left: 25px !important;
 }
 
 .padding-all-5 {
-    padding: 5px !important;
+  padding: 5px !important;
 }
 
 .padding-all-10 {
-    padding: 10px !important;
+  padding: 10px !important;
 }
 
 .padding-all-15 {
-    padding: 15px !important;
+  padding: 15px !important;
 }
 
 //****************************//
@@ -405,15 +405,15 @@ ion-back-button {
 //***************************//
 
 .font-bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .font-reg {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .font-light {
-    font-weight: 300;
+  font-weight: 300;
 }
 
 //****************************//
@@ -421,7 +421,7 @@ ion-back-button {
 //***************************//
 
 .font-gotham {
-    font-family: "Gotham" !important;
+  font-family: "Gotham" !important;
 }
 
 //****************************//
@@ -429,23 +429,23 @@ ion-back-button {
 //***************************//
 
 .txt-desc {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .txt-small {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .txt-big {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .txt-title {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .txt-19 {
-    font-size: 19px;
+  font-size: 19px;
 }
 
 //****************************//
@@ -453,13 +453,21 @@ ion-back-button {
 //***************************//
 
 .clr-blue {
-    color: var(--ion-color-primary);
+  color: var(--ion-color-primary);
 }
 
 .clr-black {
-    color: var(--ion-color-dark);
+  color: var(--ion-color-dark);
 }
 
 .clr-purple {
-    color: #2e1988;
+  color: #2e1988;
+}
+
+//****************************//
+//******** Custom ***********//
+//***************************//
+
+.swiper-pagination {
+  z-index: -10 !important;
 }

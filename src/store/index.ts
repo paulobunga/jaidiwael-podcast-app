@@ -16,19 +16,14 @@ export const GET_PODCASTS = "GET_PODCASTS";
 export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
 export const GET_CURRENT_TRACK = "GET_CURRENT_TRACK";
 
-export const SHOW_PLAYER = "SHOW_PLAYER";
-
 export const START = "START";
-
-export const SHOW_VIDEO = "SHOW_VIDEO";
 
 export const TOGGLE_FULLSCREEN = "TOGGLE_FULLSCREEN";
 
 const INITIALSTATE = {
   media: {},
   podcasts: [],
-  currentPodcast: {},
-  showVideo: false,
+  currentPodcast: null,
 };
 
 export function mediaStateReducer(
@@ -37,17 +32,6 @@ export function mediaStateReducer(
 ) {
   let payload = action.payload;
   switch (action.type) {
-    case SHOW_VIDEO:
-      return {
-        ...state,
-        showVideo: payload.value,
-      };
-    case SHOW_PLAYER:
-      return {
-        ...state,
-        showPlayer: true,
-      };
-
     case GET_PODCASTS:
       return {
         ...state,
