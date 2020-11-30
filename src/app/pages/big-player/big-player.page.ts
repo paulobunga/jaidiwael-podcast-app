@@ -9,7 +9,7 @@ import { AudioService } from "src/app/services/audio.service";
   styleUrls: ["./big-player.page.scss"],
 })
 export class BigPlayerPage {
-  public currentPodcast: any = null;
+  public currentPodcast: any;
 
   seekbar: FormControl = new FormControl("seekbar");
   state: any = {};
@@ -21,13 +21,15 @@ export class BigPlayerPage {
   ionViewWillEnter(): void {
     this.store.select("appState").subscribe((value) => {
       if (value) {
-        console.log(value);
+        console.log("Big Player State ===>", value);
         this.state = value.media;
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
         }
       }
     });
+
+    this.audioService.hideVideoPlayer();
   }
 
   getThumbnail() {
