@@ -14,7 +14,6 @@ export const RESET = "RESET";
 
 export const GET_PODCASTS = "GET_PODCASTS";
 export const SET_CURRENT_TRACK = "SET_CURRENT_TRACK";
-export const GET_CURRENT_TRACK = "GET_CURRENT_TRACK";
 
 export const START = "START";
 
@@ -39,12 +38,6 @@ export function mediaStateReducer(
       };
 
     case SET_CURRENT_TRACK:
-      return {
-        ...state,
-        currentPodcast: payload.value,
-      };
-
-    case GET_CURRENT_TRACK:
       return {
         ...state,
         currentPodcast: payload.value,
@@ -114,12 +107,9 @@ export function mediaStateReducer(
         },
       };
     case RESET:
-      state = Object.assign({}, state);
-      (state.currentPodcast = null), (state.media = {});
-      return state;
-    default:
-      state = {};
-      state.media = {};
-      return state;
+      return {
+        ...state,
+        media: {},
+      };
   }
 }

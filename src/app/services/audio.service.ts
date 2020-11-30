@@ -8,6 +8,7 @@ import {
   LOADEDMETADATA,
   LOADSTART,
   PLAYING,
+  RESET,
   START,
   TIMEUPDATE,
   TOGGLE_FULLSCREEN,
@@ -42,7 +43,7 @@ export class AudioService {
   public initialize = (playerElem) => {
     //Create our audio player with element ref from Ionic **Simple as that :)
     if (this.player) {
-      console.log("You already have a player instance");
+      this.player.playerElement().style.display = "none";
     } else {
       this.player = amp(playerElem, {
         nativeControlsForTouch: false,
@@ -68,6 +69,14 @@ export class AudioService {
     this.player.playerElement().style.display = "block";
     if (!this.player.isFullscreen()) {
       this.player.enterFullscreen();
+    }
+  }
+
+  hideVideoPlayer() {
+    this.player.playerElement().style.display = "none";
+
+    if (this.player.isFullscreen()) {
+      this.player.exitFullscreen();
     }
   }
 
@@ -171,7 +180,7 @@ export class AudioService {
 
   playPodcastStream(url) {
     this.stop();
-    //this.store.dispatch({ type: RESET });
+    this.store.dispatch({ type: RESET });
     this.playStream(url).subscribe((event) => {
       //const audioObj = event.target;
 

@@ -5,6 +5,7 @@ import { AudioService } from "src/app/services/audio.service";
 import { RadioService } from "src/app/services/radio.service";
 import {
   CANPLAYTHROUGH,
+  GET_PODCASTS,
   LOADEDMETADATA,
   LOADSTART,
   PLAYING,
@@ -23,7 +24,7 @@ export class EmissionCategoryPage implements OnInit {
   bgEmissionCategoriesUrl: string;
 
   podcasts: any[] = [];
-  currentPodcast: any = {};
+  currentPodcast: any;
   state: any = {};
 
   constructor(
@@ -34,6 +35,15 @@ export class EmissionCategoryPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.audioService.hideVideoPlayer();
+
+    this.getEmissionCategories(
+      this.activatedRoute.snapshot.params["emissionId"]
+    );
+    this.getEmissionsCategory(
+      this.activatedRoute.snapshot.params["emissionId"]
+    );
+
     this.store.select("appState").subscribe((value) => {
       if (value) {
         this.state = value.media;
@@ -42,15 +52,7 @@ export class EmissionCategoryPage implements OnInit {
           this.currentPodcast = value.currentPodcast;
         }
       }
-      console.log("EmissionCategoryPage#value", value);
     });
-
-    this.getEmissionCategories(
-      this.activatedRoute.snapshot.params["emissionId"]
-    );
-    this.getEmissionsCategory(
-      this.activatedRoute.snapshot.params["emissionId"]
-    );
   }
 
   getEmissionCategories(emissionId: number) {
@@ -67,14 +69,15 @@ export class EmissionCategoryPage implements OnInit {
       alaUne: false,
       idEmission: emissionId,
     };
+
+    Object.freeze(filterBy);
+
     console.log("emissionId", emissionId);
     this.radioService.getPodcasts(filterBy).subscribe(
       (res: any) => {
-        console.log("getEmissionsCategory#res", res);
-        this.podcasts = res;
+        this.store.dispatch({ type: GET_PODCASTS, payload: { value: res } });
       },
       (error: any) => {
-        console.log("getEmissionsCategory#error", error);
         if (error.status == 401) {
           this.radioService.getToken().subscribe((_) => {
             this.getEmissionsCategory(emissionId);
@@ -111,18 +114,16 @@ export class EmissionCategoryPage implements OnInit {
   }
 
   openPodcast(podcast) {
-    console.log("podcast", podcast);
-    if (this.currentPodcast.id === podcast.id) {
+    if (this.currentPodcast && this.currentPodcast.id === podcast.id) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {
         this.audioService.play();
       }
     } else {
-      let currentPodcast = { ...podcast };
       this.store.dispatch({
         type: SET_CURRENT_TRACK,
-        payload: { value: currentPodcast },
+        payload: { value: podcast },
       });
 
       this.audioService.playPodcastStream(this.getAudio(podcast));

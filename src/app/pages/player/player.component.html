@@ -36,7 +36,7 @@
 </div>
 
 <video
-  [style.display]="isLarge ? 'none' : 'block'"
+  *ngIf="currentPodcast"
   #audio
   class="azuremediaplayer amp-default-skin"
   width="100%"

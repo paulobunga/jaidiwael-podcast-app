@@ -61,6 +61,7 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
   @ViewChild(IonContent) content: IonContent;
 
   @Input() isLarge: boolean;
+  @Input() showVideo: boolean;
 
   player: amp.Player;
 
@@ -123,6 +124,12 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
       .subscribe((value: any) => {
         this.seekbar.setValue(value);
       });
+
+    if (this.router.url.split("/")[1] == "emission-category") {
+      this.audioPlayer.nativeElement.style.display = "none";
+    } else if (this.router.url.split("/")[1] == "big-player") {
+      this.audioPlayer.nativeElement.style.display = "none";
+    }
   }
 
   resetState() {
@@ -206,6 +213,7 @@ export class PlayerComponent implements AfterViewInit, OnChanges {
       this.router.navigate([`/big-player`]);
     } else {
       console.log("this is video");
+      this.audioPlayer.nativeElement.style.display = "block";
       this.audioService.showVideoPlayer();
     }
   }

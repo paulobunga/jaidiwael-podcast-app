@@ -81,7 +81,7 @@ export class PodcastsPage implements OnInit {
         this.ourSelectionPodcasts = res;
         this.store.dispatch({
           type: GET_PODCASTS,
-          payload: { value: res.reverse() },
+          payload: { value: res },
         });
       },
       (error: any) => {
@@ -122,7 +122,7 @@ export class PodcastsPage implements OnInit {
   }
 
   openPodcast(podcast) {
-    if (this.currentPodcast.id === podcast.id) {
+    if (this.currentPodcast && this.currentPodcast.id === podcast.id) {
       if (this.state.playing) {
         this.audioService.pause();
       } else {

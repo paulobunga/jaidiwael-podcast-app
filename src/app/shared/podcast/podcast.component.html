@@ -7,7 +7,7 @@
     <ng-container *ngIf="state && !!state.playing">
       <ion-icon
         size="large"
-        *ngIf="currentPodcast.id === podcast.id"
+        *ngIf="currentPodcast && currentPodcast.id === podcast.id"
         style="position: absolute; bottom: 5px; right: 5px"
         color="dark"
         name="pause-circle-outline"
@@ -21,13 +21,13 @@
         style="position: absolute; bottom: 5px; right: 5px"
         color="light"
         name="play-circle-outline"
-        *ngIf="currentPodcast.id === podcast.id"
+        *ngIf="currentPodcast && currentPodcast.id === podcast.id"
       ></ion-icon>
     </ng-container>
 
     <ion-icon
       size="large"
-      *ngIf="currentPodcast.id !== podcast.id"
+      *ngIf="!currentPodcast || currentPodcast.id !== podcast.id"
       style="position: absolute; bottom: 5px; right: 5px"
       color="dark"
       name="play-circle-outline"
