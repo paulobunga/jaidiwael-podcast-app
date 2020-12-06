@@ -19,7 +19,7 @@ import {
 })
 export class AudioService {
   private stop$ = new Subject();
-  private player: amp.Player = null;
+  public player: amp.Player = null;
   public podcasts = [];
   public currentPodcast = null;
 
@@ -165,6 +165,18 @@ export class AudioService {
     this.player.pause();
   }
 
+  public rewind() {
+    if (this.player.currentTime() > 0) {
+      this.player.currentTime(this.player.currentTime() - 30);
+    }
+  }
+
+  public forward() {
+    if (this.player.currentTime() > 0) {
+      this.player.currentTime(this.player.currentTime() + 30);
+    }
+  }
+
   stop() {
     this.stop$.next();
     this.player.playerElement().style.display = "none";
@@ -194,6 +206,22 @@ export class AudioService {
         case "loadedmetadata":
           return this.store.dispatch({
             type: LOADEDMETADATA,
+            payload: {
+              value: true,
+              data: {
+                time: this.formatTime(
+                  this.player.duration() * 1000,
+                  "HH:mm:ss"
+                ),
+                timeSec: this.player.duration(),
+                mediaType: "mp3",
+              },
+            },
+          });
+
+        case "seeked":
+          return this.store.dispatch({
+            type: SEEKED,
             payload: {
               value: true,
               data: {

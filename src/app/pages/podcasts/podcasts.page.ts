@@ -38,7 +38,7 @@ export class PodcastsPage implements OnInit {
           this.currentPodcast = value.currentPodcast;
         }
       }
-      console.log("PodcastsPage#value", value);
+      // console.log("PodcastsPage#value", value);
     });
 
     this.getOurSelectionPodcast();

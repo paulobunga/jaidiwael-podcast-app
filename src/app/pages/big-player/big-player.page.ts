@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { IonRange } from "@ionic/angular";
 import { Store } from "@ngrx/store";
 import { AudioService } from "src/app/services/audio.service";
 
@@ -11,18 +12,26 @@ import { AudioService } from "src/app/services/audio.service";
 export class BigPlayerPage {
   public currentPodcast: any;
 
+  player: amp.Player = this.audioService.player;
+
   seekbar: FormControl = new FormControl("seekbar");
   state: any = {};
   onSeekState: boolean;
-  player: amp.Player;
+
+  @ViewChild("range", { static: false }) range: IonRange;
+  progress: number;
 
   constructor(private store: Store<any>, private audioService: AudioService) {}
 
   ionViewWillEnter(): void {
     this.store.select("appState").subscribe((value) => {
       if (value) {
-        console.log("Big Player State ===>", value);
         this.state = value.media;
+        // this.progress =
+        //   (this.state.durationSec / this.player.duration()) * 100 || 0;
+
+        this.progress = (this.state.timeSec / this.state.durationSec) * 100;
+
         if (value.currentPodcast) {
           this.currentPodcast = value.currentPodcast;
         }
@@ -40,20 +49,19 @@ export class BigPlayerPage {
     ].url;
   }
 
-  onSeekStart() {
-    this.onSeekState = this.state.playing;
-    if (this.onSeekState) {
-      this.audioService.pause();
-    }
+  seek() {
+    let newValue = +this.range.value / 100;
+    let duration = this.player.duration();
+    this.audioService.seekTo(duration * newValue);
   }
 
-  onSeekEnd(event) {
-    if (this.onSeekState) {
-      this.audioService.seekTo(event.value);
-      this.audioService.play();
-    } else {
-      this.audioService.seekTo(event.value);
-    }
+  updateProgress() {
+    this.progress =
+      (this.state.durationSec / this.player.duration()) * 100 || 0;
+
+    setTimeout(() => {
+      this.updateProgress();
+    }, 1000);
   }
 
   pause() {
@@ -62,6 +70,14 @@ export class BigPlayerPage {
 
   play() {
     this.audioService.play();
+  }
+
+  rewind() {
+    this.audioService.rewind();
+  }
+
+  forward() {
+    this.audioService.forward();
   }
 
   truncate(str, n) {

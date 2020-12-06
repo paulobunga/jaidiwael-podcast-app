@@ -19,6 +19,8 @@ export const START = "START";
 
 export const TOGGLE_FULLSCREEN = "TOGGLE_FULLSCREEN";
 
+export const SEEKED = "SEEKED";
+
 const INITIALSTATE = {
   media: {},
   podcasts: [],
@@ -60,6 +62,16 @@ export function mediaStateReducer(
           duration: payload.data.time,
           durationSec: payload.data.timeSec,
           mediaType: payload.data.mediaType,
+        },
+      };
+
+    case SEEKED:
+      return {
+        ...state,
+        media: {
+          ...state.media,
+          duration: payload.data.time,
+          durationSec: payload.data.timeSec,
         },
       };
     case PLAYING:
