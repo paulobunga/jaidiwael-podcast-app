@@ -59,16 +59,16 @@ export class AudioService {
         controls: true,
         poster: "",
       });
-    }
 
-    this.player.ready(() => {
-      this.player.playerElement().style.display = "none";
+      this.player.ready(() => {
+        this.player.playerElement().style.display = "none";
 
-      this.player.addEventListener(amp.eventName.exitfullscreen, () => {
-        console.log("Full screen exited, So we hide element again");
-        this.hideVideoPlayer();
+        this.player.addEventListener(amp.eventName.exitfullscreen, () => {
+          console.log("Full screen exited, So we hide element again");
+          this.hideVideoPlayer();
+        });
       });
-    });
+    }
   };
 
   showVideoPlayer() {
