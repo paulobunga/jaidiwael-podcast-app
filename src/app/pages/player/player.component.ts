@@ -21,7 +21,7 @@ import { FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { IonContent, LoadingController } from "@ionic/angular";
 import { Store } from "@ngrx/store";
-import { distinctUntilChanged, filter, map, pluck } from "rxjs/Operators";
+import { distinctUntilChanged, filter, map, pluck } from "rxjs/operators";
 import { AudioService } from "src/app/services/audio.service";
 import { RESET } from "src/store";
 

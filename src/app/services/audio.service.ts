@@ -2,13 +2,14 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as moment from "moment";
 import { Observable, Subject } from "rxjs";
-import { takeUntil } from "rxjs/Operators";
+import { takeUntil } from "rxjs/operators";
 import {
   CANPLAYTHROUGH,
   LOADEDMETADATA,
   LOADSTART,
   PLAYING,
   RESET,
+  SEEKED,
   START,
   TIMEUPDATE,
   TOGGLE_FULLSCREEN,
@@ -43,7 +44,7 @@ export class AudioService {
   public initialize = (playerElem) => {
     //Create our audio player with element ref from Ionic **Simple as that :)
     if (this.player) {
-      this.player.playerElement().style.display = "none";
+      // this.player.playerElement().style.display = "none";
     } else {
       this.player = amp(playerElem, {
         nativeControlsForTouch: false,
@@ -62,6 +63,11 @@ export class AudioService {
 
     this.player.ready(() => {
       this.player.playerElement().style.display = "none";
+
+      this.player.addEventListener(amp.eventName.exitfullscreen, () => {
+        console.log("Full screen exited, So we hide element again");
+        this.hideVideoPlayer();
+      });
     });
   };
 

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { tap } from "rxjs/Operators";
+import { tap } from "rxjs/operators";
 import { environment } from "../../environments/environment";
 const { API_URL } = environment;
 
